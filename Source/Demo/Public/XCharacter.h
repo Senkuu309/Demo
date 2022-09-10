@@ -4,13 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-#include "SCharacter.generated.h"
+#include "XCharacter.generated.h"
 
 class UCameraComponent;
 class USpringArmComponent;
 
 UCLASS()
-class DEMO_API ASCharacter : public ACharacter
+class DEMO_API AXCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -22,7 +22,7 @@ protected:
 
 public:
 	// Sets default values for this character's properties
-	ASCharacter();
+	AXCharacter();
 
 protected:
 

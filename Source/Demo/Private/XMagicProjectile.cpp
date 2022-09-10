@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "SMagicProjectile.h"
+#include "XMagicProjectile.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 
 // Sets default values
-ASMagicProjectile::ASMagicProjectile()
+AXMagicProjectile::AXMagicProjectile()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -26,14 +26,14 @@ ASMagicProjectile::ASMagicProjectile()
 }
 
 // Called when the game starts or when spawned
-void ASMagicProjectile::BeginPlay()
+void AXMagicProjectile::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
 // Called every frame
-void ASMagicProjectile::Tick(float DeltaTime)
+void AXMagicProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
