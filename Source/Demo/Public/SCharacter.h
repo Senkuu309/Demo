@@ -14,15 +14,23 @@ class DEMO_API ASCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+protected:
+
+	//魔法
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> ProjectileClass;
+
 public:
 	// Sets default values for this character's properties
 	ASCharacter();
 
 protected:
 
+	//相机臂
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArmComp;
 
+	//相机
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp;
 
@@ -30,7 +38,10 @@ protected:
 	virtual void BeginPlay() override;
 
 	void MoveForward(float value);
+
 	void MoveRight(float value);
+
+	void PrimaryAttack();
 
 public:	
 	// Called every frame
