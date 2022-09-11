@@ -5,6 +5,15 @@
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "UObject/SparseDelegate.h"
+
+void AXMagicProjectile::OnHit(UPrimitiveComponent* HitComponent, class AActor* OtherActor, class UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (this->GetInstigator() != OtherActor) {
+		this->Destroy();
+	}
+	
+}
 
 // Sets default values
 AXMagicProjectile::AXMagicProjectile()
@@ -15,6 +24,9 @@ AXMagicProjectile::AXMagicProjectile()
 	SphereComp = CreateDefaultSubobject<USphereComponent>("SphereComp");
 	SphereComp->SetCollisionProfileName("Projectile");
 	RootComponent = SphereComp;
+
+	SphereComp->OnComponentHit.AddDynamic(this, &AXMagicProjectile::OnHit);
+	
 
 	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("EffectComp");
 	EffectComp->SetupAttachment(SphereComp);
@@ -29,8 +41,9 @@ AXMagicProjectile::AXMagicProjectile()
 void AXMagicProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	SphereComp->IgnoreActorWhenMoving(this->GetInstigator(), true);
 }
+
 
 // Called every frame
 void AXMagicProjectile::Tick(float DeltaTime)

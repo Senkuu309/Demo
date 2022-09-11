@@ -15,6 +15,10 @@ class DEMO_API AXMagicProjectile : public AActor
 {
 	GENERATED_BODY()
 	
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent* HitComponent, class AActor* OtherActor, 
+		class UPrimitiveComponent* OtherComponent, FVector NormalImpulse, 
+		const FHitResult& Hit);
 public:	
 	// Sets default values for this actor's properties
 	AXMagicProjectile();
@@ -31,7 +35,6 @@ protected:
 	UParticleSystemComponent* EffectComp;
 
 
-
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -39,4 +42,5 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	
 };
