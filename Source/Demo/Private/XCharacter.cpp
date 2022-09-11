@@ -67,6 +67,15 @@ void AXCharacter::MoveRight(float value)
 
 void AXCharacter::PrimaryAttack()
 {
+	PlayAnimMontage(AttackAnim);
+
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &AXCharacter::TimerHandle_TimeElapsed, 0.2f);
+	
+	//GetWorldTimerManager().ClearTimer(TimerHandle_PrimaryAttack);
+}
+
+void AXCharacter::TimerHandle_TimeElapsed()
+{
 	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
 
 	//设置魔法的位置和角度
@@ -75,7 +84,6 @@ void AXCharacter::PrimaryAttack()
 	//设置魔法特效的变量
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-
 
 	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 }
