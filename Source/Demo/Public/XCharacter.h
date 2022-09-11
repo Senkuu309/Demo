@@ -20,6 +20,7 @@ protected:
 	//魔法
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> ProjectileClass;
+
 	//魔法动作
 	UPROPERTY(EditAnywhere)
 	UAnimMontage* AttackAnim;

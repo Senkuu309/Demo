@@ -7,6 +7,8 @@
 #include "XGameplayInterface.h"
 #include "XItemChest.generated.h"
 
+class UTimelineComponent;
+
 UCLASS()
 class DEMO_API AXItemChest : public AActor, public IXGameplayInterface
 {
@@ -14,19 +16,26 @@ class DEMO_API AXItemChest : public AActor, public IXGameplayInterface
 
 	virtual void Interact_Implementation(APawn* InstigatorPawn) override;
 
-	float targetPitch;
+	float TargetPitch;
 	
 public:	
 	// Sets default values for this actor's properties
 	AXItemChest();
 
 protected:
+	UPROPERTY(BlueprintReadOnly, EditAnywhere)
+	UParticleSystemComponent* BonusComp;
+
+protected:
 
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* BaseMesh;
 
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere)
 	UStaticMeshComponent* LidMesh;
+
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* BonusMesh;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -34,5 +43,4 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 };

@@ -2,6 +2,9 @@
 
 
 #include "XItemChest.h"
+#include "Particles/ParticleSystemComponent.h"
+#include "Kismet/KismetMathLibrary.h"
+#include"Components/TimelineComponent.h"
 
 // Sets default values
 AXItemChest::AXItemChest()
@@ -14,12 +17,14 @@ AXItemChest::AXItemChest()
 
 	LidMesh = CreateDefaultSubobject<UStaticMeshComponent>("LidMesh");
 	LidMesh->SetupAttachment(BaseMesh);
-	FVector LidLocation = GetActorLocation();
-	LidLocation.X -= 35.0f;
-	LidLocation.Z += 50.0f;
-	LidMesh->SetRelativeLocation(LidLocation);
 
-	targetPitch = 110;
+	BonusMesh = CreateDefaultSubobject<UStaticMeshComponent>("BonusMesh");
+	BonusMesh->SetupAttachment(BaseMesh);
+
+	BonusComp = CreateDefaultSubobject<UParticleSystemComponent>("BonusComp");
+	BonusComp->SetupAttachment(BaseMesh);
+
+	TargetPitch = 110;
 }
 
 // Called when the game starts or when spawned
@@ -33,10 +38,10 @@ void AXItemChest::BeginPlay()
 void AXItemChest::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AXItemChest::Interact_Implementation(APawn* InstigatorPawn)
 {
-	LidMesh->SetRelativeRotation(FRotator(targetPitch, 0, 0));
+	LidMesh->SetRelativeRotation(FRotator(TargetPitch, 0, 0));
 }
+
