@@ -3,11 +3,6 @@
 
 #include "XItemChest.h"
 
-void AXItemChest::Interact_Implementation(APawn* InstigatorPawn)
-{
-	LidMesh->SetRelativeRotation(FRotator(targetPitch, 0, 0));
-}
-
 // Sets default values
 AXItemChest::AXItemChest()
 {
@@ -23,7 +18,6 @@ AXItemChest::AXItemChest()
 	LidLocation.X -= 35.0f;
 	LidLocation.Z += 50.0f;
 	LidMesh->SetRelativeLocation(LidLocation);
-
 
 	targetPitch = 110;
 }
@@ -42,3 +36,7 @@ void AXItemChest::Tick(float DeltaTime)
 
 }
 
+void AXItemChest::Interact_Implementation(APawn* InstigatorPawn)
+{
+	LidMesh->SetRelativeRotation(FRotator(targetPitch, 0, 0));
+}

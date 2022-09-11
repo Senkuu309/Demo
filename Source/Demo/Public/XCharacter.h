@@ -8,6 +8,7 @@
 
 class UCameraComponent;
 class USpringArmComponent;
+class UXInteractionComponent;
 
 UCLASS()
 class DEMO_API AXCharacter : public ACharacter
@@ -26,13 +27,17 @@ public:
 
 protected:
 
-	//相机臂
+	//相机臂组件
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArmComp;
 
-	//相机
+	//相机组件
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp;
+
+	//交互组件
+	UPROPERTY(VisibleAnywhere)
+	UXInteractionComponent* InteractComp;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -42,6 +47,8 @@ protected:
 	void MoveRight(float value);
 
 	void PrimaryAttack();
+
+	void PrimaryInteract();
 
 public:	
 	// Called every frame

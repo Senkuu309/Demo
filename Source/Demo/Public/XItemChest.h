@@ -12,7 +12,7 @@ class DEMO_API AXItemChest : public AActor, public IXGameplayInterface
 {
 	GENERATED_BODY()
 
-	void Interact_Implementation(APawn* InstigatorPawn);
+	virtual void Interact_Implementation(APawn* InstigatorPawn) override;
 
 	float targetPitch;
 	
