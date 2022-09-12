@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "XCharacter.h"
+#include "Character/XCharacter.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "DrawDebugHelpers.h"
@@ -76,18 +76,21 @@ void AXCharacter::PrimaryAttack()
 
 void AXCharacter::TimerHandle_TimeElapsed()
 {
-	FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
+	if (ensure(ProjectileClass)) {
+		FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
 
-	//设置魔法的位置和角度
-	FTransform SpawnTM = FTransform(GetActorRotation(), HandLocation);
+		//设置魔法的位置和角度
+		FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
 
-	//设置魔法特效的变量
-	FActorSpawnParameters SpawnParams;
-	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-	SpawnParams.Instigator = this;
+		//设置魔法特效的变量
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		SpawnParams.Instigator = this;
 
-	GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+	}
 }
+	
 
 void AXCharacter::PrimaryInteract()
 {

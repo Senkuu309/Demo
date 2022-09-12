@@ -49,6 +49,5 @@ void AXMagicProjectile::BeginPlay()
 void AXMagicProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
