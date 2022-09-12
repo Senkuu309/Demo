@@ -16,9 +16,11 @@ class DEMO_API AXMagicProjectile : public AActor
 	GENERATED_BODY()
 	
 	UFUNCTION()
-	void OnHit(UPrimitiveComponent* HitComponent, class AActor* OtherActor, 
-		class UPrimitiveComponent* OtherComponent, FVector NormalImpulse, 
-		const FHitResult& Hit);
+	void OnHit(UPrimitiveComponent* HitComponent, class AActor* OtherActor, class UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit);
+
+	UFUNCTION()
+	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
 public:	
 	// Sets default values for this actor's properties
 	AXMagicProjectile();

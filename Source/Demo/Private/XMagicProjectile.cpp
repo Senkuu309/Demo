@@ -6,13 +6,26 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "UObject/SparseDelegate.h"
+#include "Component/XAttributeComponent.h"
 
 void AXMagicProjectile::OnHit(UPrimitiveComponent* HitComponent, class AActor* OtherActor, class UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if (this->GetInstigator() != OtherActor) {
-		this->Destroy();
+	if (GetInstigator() != OtherActor) {
+		Destroy();
 	}
-	
+}
+
+void AXMagicProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor)
+	{
+		UXAttributeComponent* AttritbuteComp = Cast<UXAttributeComponent>(OtherActor->GetComponentByClass(UXAttributeComponent::StaticClass()));
+		if (AttritbuteComp)
+		{
+			AttritbuteComp->ApplyHealthChange(-20.0f);
+			Destroy();
+		}
+	}
 }
 
 // Sets default values
@@ -27,6 +40,7 @@ AXMagicProjectile::AXMagicProjectile()
 
 	SphereComp->OnComponentHit.AddDynamic(this, &AXMagicProjectile::OnHit);
 	
+	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &AXMagicProjectile::OnOverlap);
 
 	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("EffectComp");
 	EffectComp->SetupAttachment(SphereComp);
@@ -41,7 +55,7 @@ AXMagicProjectile::AXMagicProjectile()
 void AXMagicProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	SphereComp->IgnoreActorWhenMoving(this->GetInstigator(), true);
+	//SphereComp->IgnoreActorWhenMoving(GetInstigator(), true);
 }
 
 

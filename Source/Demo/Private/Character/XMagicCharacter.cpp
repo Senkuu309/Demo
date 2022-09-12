@@ -2,10 +2,11 @@
 
 
 #include "Character/XMagicCharacter.h"
+#include "Component/XAttributeComponent.h"
 
 AXMagicCharacter::AXMagicCharacter()
 {
-
+	AttributeComp->SetDefaultHealth(1000);
 }
 
 void AXMagicCharacter::PrimaryAttack()

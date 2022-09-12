@@ -7,6 +7,7 @@
 #include "DrawDebugHelpers.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "XInteractionComponent.h"
+#include "Component/XAttributeComponent.h"
 
 // Sets default values
 AXCharacter::AXCharacter()
@@ -29,6 +30,8 @@ AXCharacter::AXCharacter()
 
 	//创建交互组件
 	InteractComp = CreateDefaultSubobject<UXInteractionComponent>("InteractComp");
+
+	AttributeComp = CreateDefaultSubobject<UXAttributeComponent>("AttributeComp");
 }
 
 // Called when the game starts or when spawned

@@ -9,6 +9,7 @@
 class UCameraComponent;
 class USpringArmComponent;
 class UXInteractionComponent;
+class UXAttributeComponent;
 
 UCLASS(Abstract)
 class DEMO_API AXCharacter : public ACharacter
@@ -32,6 +33,10 @@ protected:
 	//交互组件
 	UPROPERTY(VisibleAnywhere)
 	UXInteractionComponent* InteractComp;
+
+	//血量组件
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UXAttributeComponent* AttributeComp;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
