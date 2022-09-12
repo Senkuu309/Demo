@@ -22,7 +22,7 @@ void AXMagicProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AAct
 		UXAttributeComponent* AttritbuteComp = Cast<UXAttributeComponent>(OtherActor->GetComponentByClass(UXAttributeComponent::StaticClass()));
 		if (AttritbuteComp)
 		{
-			AttritbuteComp->ApplyHealthChange(-20.0f);
+			AttritbuteComp->ApplyHealthChange(-20);
 			Destroy();
 		}
 	}
