@@ -13,5 +13,25 @@ UCLASS()
 class DEMO_API AXMagicCharacter : public AXCharacter
 {
 	GENERATED_BODY()
+
+protected:
+	//魔法
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor> ProjectileClass;
+
+	//魔法动作
+	UPROPERTY(EditAnywhere)
+	UAnimMontage* AttackAnim;
+
+	FTimerHandle TimerHandle_PrimaryAttack;
+
+public:
+	AXMagicCharacter();
+
+protected:
+
+	virtual void PrimaryAttack();
+
+	void TimerHandle_TimeElapsed();
 	
 };

@@ -10,22 +10,10 @@ class UCameraComponent;
 class USpringArmComponent;
 class UXInteractionComponent;
 
-UCLASS()
+UCLASS(Abstract)
 class DEMO_API AXCharacter : public ACharacter
 {
 	GENERATED_BODY()
-
-protected:
-
-	//魔法
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<AActor> ProjectileClass;
-
-	//魔法动作
-	UPROPERTY(EditAnywhere)
-	UAnimMontage* AttackAnim;
-
-	FTimerHandle TimerHandle_PrimaryAttack;
 
 public:
 	// Sets default values for this character's properties
@@ -52,9 +40,7 @@ protected:
 
 	void MoveRight(float value);
 
-	void PrimaryAttack();
-
-	void TimerHandle_TimeElapsed();
+	virtual void PrimaryAttack() {};
 
 	void PrimaryInteract();
 

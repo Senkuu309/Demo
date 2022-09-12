@@ -64,32 +64,6 @@ void AXCharacter::MoveRight(float value)
 
 	AddMovementInput(RightVector, value);
 }
-
-void AXCharacter::PrimaryAttack()
-{
-	PlayAnimMontage(AttackAnim);
-
-	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &AXCharacter::TimerHandle_TimeElapsed, 0.2f);
-	
-	//GetWorldTimerManager().ClearTimer(TimerHandle_PrimaryAttack);
-}
-
-void AXCharacter::TimerHandle_TimeElapsed()
-{
-	if (ensure(ProjectileClass)) {
-		FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
-
-		//设置魔法的位置和角度
-		FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
-
-		//设置魔法特效的变量
-		FActorSpawnParameters SpawnParams;
-		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		SpawnParams.Instigator = this;
-
-		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
-	}
-}
 	
 
 void AXCharacter::PrimaryInteract()
@@ -113,6 +87,5 @@ void AXCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &AXCharacter::PrimaryAttack);
 	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &AXCharacter::PrimaryInteract);
-
 }
 
