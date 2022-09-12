@@ -3,10 +3,12 @@
 
 #include "Character/XMagicCharacter.h"
 #include "Component/XAttributeComponent.h"
+#include "Character/XCharacter.h"
+#include "Component/XAttributeComponent.h"
 
 AXMagicCharacter::AXMagicCharacter()
 {
-	AttributeComp->SetDefaultHealth(1000);
+	AttributeComp->SetDefaultHealth(1000, 1000);
 }
 
 void AXMagicCharacter::PrimaryAttack()
@@ -33,4 +35,9 @@ void AXMagicCharacter::TimerHandle_TimeElapsed()
 
 		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
 	}
+}
+
+void AXMagicCharacter::BeginPlay()
+{
+	Super::BeginPlay();
 }

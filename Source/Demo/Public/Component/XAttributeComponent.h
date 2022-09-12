@@ -1,28 +1,30 @@
 // Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/SceneComponent.h"
+#include "Components/ActorComponent.h"
 #include "XAttributeComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnHealthChanged, AActor*, InstigatoActor, UXAttributeComponent*, OwningComp, float, maxHealth, float, newHealth, float, Delta);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class DEMO_API UXAttributeComponent : public USceneComponent
+class DEMO_API UXAttributeComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-	
-protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Attributes")
-	float Health;
-	
+	float MaxHealth;
 
+	float CurrentHealth;
+	
 public:	
+	UPROPERTY(BlueprintAssignable)
+	FOnHealthChanged OnHealthChanged;
+	
 	// Sets default values for this component's properties
 	UXAttributeComponent();
+
 	UFUNCTION()
-	bool SetDefaultHealth(float DefaultHealth);
+	bool SetDefaultHealth(float MaxHealth, float CurrentHealth);
 
 	//血量变化组件
 	UFUNCTION(BlueprintCallable, Category = "Attributes")

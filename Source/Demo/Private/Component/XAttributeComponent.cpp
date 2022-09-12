@@ -9,16 +9,19 @@ UXAttributeComponent::UXAttributeComponent()
 	//Health = 100;
 }
 
-bool UXAttributeComponent::SetDefaultHealth(float DefaultHealth)
+bool UXAttributeComponent::SetDefaultHealth(float _MaxHealth, float _CurrentHealth)
 {
-	Health = DefaultHealth;
+	MaxHealth = _MaxHealth;
+	CurrentHealth = _CurrentHealth;
 	
 	return true;
 }
 
 bool UXAttributeComponent::ApplyHealthChange(float Delta)
 {
-	Health += Delta;
+	CurrentHealth += Delta;
+
+	OnHealthChanged.Broadcast(nullptr, this, MaxHealth, CurrentHealth, Delta);
 
 	return true;
 }

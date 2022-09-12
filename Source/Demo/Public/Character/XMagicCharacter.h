@@ -33,5 +33,8 @@ protected:
 	virtual void PrimaryAttack();
 
 	void TimerHandle_TimeElapsed();
+
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 	
 };

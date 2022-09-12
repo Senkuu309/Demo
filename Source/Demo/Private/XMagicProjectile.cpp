@@ -17,7 +17,7 @@ void AXMagicProjectile::OnHit(UPrimitiveComponent* HitComponent, class AActor* O
 
 void AXMagicProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor)
+	if (GetInstigator() != OtherActor)
 	{
 		UXAttributeComponent* AttritbuteComp = Cast<UXAttributeComponent>(OtherActor->GetComponentByClass(UXAttributeComponent::StaticClass()));
 		if (AttritbuteComp)
@@ -55,7 +55,7 @@ AXMagicProjectile::AXMagicProjectile()
 void AXMagicProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-	//SphereComp->IgnoreActorWhenMoving(GetInstigator(), true);
+	SphereComp->IgnoreActorWhenMoving(this->GetInstigator(), true);
 }
 
 

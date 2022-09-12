@@ -31,8 +31,10 @@ AXCharacter::AXCharacter()
 	//创建交互组件
 	InteractComp = CreateDefaultSubobject<UXInteractionComponent>("InteractComp");
 
+	//创建血量组件
 	AttributeComp = CreateDefaultSubobject<UXAttributeComponent>("AttributeComp");
 }
+
 
 // Called when the game starts or when spawned
 void AXCharacter::BeginPlay()
