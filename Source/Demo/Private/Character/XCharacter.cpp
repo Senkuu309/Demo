@@ -92,5 +92,7 @@ void AXCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	PlayerInputComponent->BindAction("PrimaryAttack", IE_Pressed, this, &AXCharacter::PrimaryAttack);
 	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &AXCharacter::PrimaryInteract);
+
+	PlayerInputComponent->BindAction("ExtraSkill", IE_Pressed, this, &AXCharacter::ExtraSkill);
 }
 

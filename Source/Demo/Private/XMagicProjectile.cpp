@@ -8,26 +8,6 @@
 #include "UObject/SparseDelegate.h"
 #include "Component/XAttributeComponent.h"
 
-void AXMagicProjectile::OnHit(UPrimitiveComponent* HitComponent, class AActor* OtherActor, class UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
-{
-	if (GetInstigator() != OtherActor) {
-		Destroy();
-	}
-}
-
-void AXMagicProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-	if (GetInstigator() != OtherActor)
-	{
-		UXAttributeComponent* AttritbuteComp = Cast<UXAttributeComponent>(OtherActor->GetComponentByClass(UXAttributeComponent::StaticClass()));
-		if (AttritbuteComp)
-		{
-			AttritbuteComp->ApplyHealthChange(-20);
-			Destroy();
-		}
-	}
-}
-
 // Sets default values
 AXMagicProjectile::AXMagicProjectile()
 {
@@ -65,3 +45,23 @@ void AXMagicProjectile::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
+void AXMagicProjectile::OnHit(UPrimitiveComponent* HitComponent, class AActor* OtherActor, class UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Hello!"));
+	if (GetInstigator() != OtherActor) {
+		Destroy();
+	}
+}
+
+void AXMagicProjectile::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	if (OtherActor && GetInstigator() != OtherActor)
+	{
+		UXAttributeComponent* AttritbuteComp = Cast<UXAttributeComponent>(OtherActor->GetComponentByClass(UXAttributeComponent::StaticClass()));
+		if (AttritbuteComp)
+		{
+			AttritbuteComp->ApplyHealthChange(-20);
+		}
+		Destroy();
+	}
+}
