@@ -38,9 +38,13 @@ public:
 
 protected:
 
-	//×ó¼ü¹¥»÷
-	virtual void PrimaryAttack() override;
-	void TimerHandle_TimeElapsed();
+	//×ó¼üÇá¹¥»÷
+	virtual void LightAttack() override;
+	void LightAttack_TimeElapsed();
+
+	//ÓÒ¼üÖØ¹¥»÷
+	virtual void HeavyAttack() override;
+	void HeavyAttack_TimeElapsed();
 
 	//¶îÍâ¼¼ÄÜ£ºÄ§·¨ÉÁÏÖ
 	virtual void ExtraSkill() override;

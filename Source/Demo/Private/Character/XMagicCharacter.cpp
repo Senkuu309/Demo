@@ -14,17 +14,17 @@ AXMagicCharacter::AXMagicCharacter()
 	AttributeComp->SetDefaultHealth(1000, 1000);
 }
 
-//×ó¼ü¹¥»÷
-void AXMagicCharacter::PrimaryAttack()
+//×ó¼üÇá¹¥»÷
+void AXMagicCharacter::LightAttack()
 {
 	PlayAnimMontage(AttackAnim);
 
-	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &AXMagicCharacter::TimerHandle_TimeElapsed, AttackAnimDelay);
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &AXMagicCharacter::LightAttack_TimeElapsed, AttackAnimDelay);
 
 	//GetWorldTimerManager().ClearTimer(TimerHandle_PrimaryAttack);
 }
 
-void AXMagicCharacter::TimerHandle_TimeElapsed()
+void AXMagicCharacter::LightAttack_TimeElapsed()
 {
 	if (ensure(ProjectileClass)) {
 		FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
@@ -41,7 +41,17 @@ void AXMagicCharacter::TimerHandle_TimeElapsed()
 	}
 }
 
+void AXMagicCharacter::HeavyAttack()
+{
 
+}
+
+void AXMagicCharacter::HeavyAttack_TimeElapsed()
+{
+
+}
+
+//¶îÍâ¼¼ÄÜ °´¼üE
 void AXMagicCharacter::ExtraSkill()
 {
 	Dash();

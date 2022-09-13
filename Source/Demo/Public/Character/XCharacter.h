@@ -45,8 +45,11 @@ protected:
 
 	void MoveRight(float value);
 
-	//×ó¼ü¹¥»÷
-	virtual void PrimaryAttack() {};
+	//×ó¼üÇá¹¥»÷
+	virtual void LightAttack() {};
+
+	//ÓÒ¼üÖØ¹¥»÷
+	virtual void HeavyAttack() {};
 
 	//¶îÍâ¼¼ÄÜ
 	virtual void ExtraSkill() {};
