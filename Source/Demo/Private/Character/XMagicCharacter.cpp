@@ -45,7 +45,7 @@ FTransform AXMagicCharacter::SpawnTM(FName ScoketLocation)
 
 	FRotator ProjRotation = FRotationMatrix::MakeFromXZ(TraceEnd - HandLocation, TraceEnd - HandLocation).Rotator();
 
-	//返回闪现魔法的位置和角度
+	//返回魔法的位置和角度
 	return FTransform(ProjRotation, HandLocation);
 }
 
@@ -119,4 +119,3 @@ void AXMagicCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 }
-
