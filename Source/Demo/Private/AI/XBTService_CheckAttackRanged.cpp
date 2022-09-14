@@ -23,11 +23,15 @@ void UXBTService_CheckAttackRanged::TickNode(UBehaviorTreeComponent& OwnerComp, 
 				{
 					float DistanceTo = FVector::Distance(TargetActor->GetActorLocation(), AIPawn->GetActorLocation());
 
-					bool bWithinRange = DistanceTo < 500.f;
+					bool bWithinRange = DistanceTo < 1000.f;
 					
 					bool isVisible = false;
+					if (bWithinRange)
+					{
+						isVisible = MyController->LineOfSightTo(TargetActor);
+					}
 
-					BlackboardComp->SetValueAsBool(AttackRangeKey.SelectedKeyName, bWithinRange);
+					BlackboardComp->SetValueAsBool(AttackRangeKey.SelectedKeyName, (bWithinRange && isVisible));
 				}
 				
 			}
