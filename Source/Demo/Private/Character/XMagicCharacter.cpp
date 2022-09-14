@@ -11,7 +11,7 @@
 AXMagicCharacter::AXMagicCharacter()
 {
 	AttackAnimDelay = 0.2f;
-	AttributeComp->SetDefaultHealth(1000, 1000);
+	AttributeComp->SetDefaultHealth(20, 20);
 }
 
 //×ó¼üÇá¹¥»÷
@@ -108,3 +108,4 @@ void AXMagicCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 }
+

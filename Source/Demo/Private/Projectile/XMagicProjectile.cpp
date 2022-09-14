@@ -15,6 +15,8 @@ AXMagicProjectile::AXMagicProjectile()
 
 	MoveComp->InitialSpeed = 1000.0f;
 	MoveComp->ProjectileGravityScale = 0.0f;
+
+	Damage = -20.f;
 }
 
 void AXMagicProjectile::OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)

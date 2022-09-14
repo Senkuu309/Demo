@@ -35,6 +35,13 @@ AXCharacter::AXCharacter()
 	AttributeComp = CreateDefaultSubobject<UXAttributeComponent>("AttributeComp");
 }
 
+void AXCharacter::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+	AttributeComp->OnHealthChanged.AddDynamic(this, &AXCharacter::OnHealthChanged);
+}
+
+
 
 // Called when the game starts or when spawned
 void AXCharacter::BeginPlay()
@@ -76,6 +83,15 @@ void AXCharacter::PrimaryInteract()
 	if (InteractComp)
 	{
 		InteractComp->PrimaryInteract();
+	}
+}
+
+void AXCharacter::OnHealthChanged(AActor* InstigatorActor, UXAttributeComponent* OwningComp, float maxHealth, float newHealth, float Delta)
+{
+	if (newHealth <= 0.0f && Delta < 0.0f)
+	{
+		APlayerController* PC = Cast<APlayerController>(GetController());
+		DisableInput(PC);
 	}
 }
 

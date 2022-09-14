@@ -3,6 +3,11 @@
 
 #include "Component/XAttributeComponent.h"
 
+bool UXAttributeComponent::isAlive() const
+{
+	return CurrentHealth > 0.0f;
+}
+
 // Sets default values for this component's properties
 UXAttributeComponent::UXAttributeComponent()
 {

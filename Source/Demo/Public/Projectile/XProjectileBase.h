@@ -21,6 +21,8 @@ public:
 
 	void BeginPlay();
 
+	float Damage;
+
 protected:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Effects")

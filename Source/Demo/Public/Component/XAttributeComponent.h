@@ -12,11 +12,7 @@ class DEMO_API UXAttributeComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-	
-	
-public:	
-	UPROPERTY(BlueprintAssignable)
-	FOnHealthChanged OnHealthChanged;
+protected:
 
 	UPROPERTY(BlueprintReadOnly)
 	float MaxHealth;
@@ -24,6 +20,15 @@ public:
 	UPROPERTY(BlueprintReadOnly)
 	float CurrentHealth;
 	
+	
+public:	
+
+	UFUNCTION(BlueprintCallable)
+	bool isAlive() const;
+
+	UPROPERTY(BlueprintAssignable)
+	FOnHealthChanged OnHealthChanged;
+
 	// Sets default values for this component's properties
 	UXAttributeComponent();
 
