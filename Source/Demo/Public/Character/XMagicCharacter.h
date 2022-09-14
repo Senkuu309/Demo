@@ -16,6 +16,8 @@ class DEMO_API AXMagicCharacter : public AXCharacter
 
 	float AttackAnimDelay;
 
+	FTransform SpawnTM(FName SocketLocation);
+
 protected:
 	//Ä§·¨
 	UPROPERTY(EditAnywhere)

@@ -14,6 +14,43 @@ AXMagicCharacter::AXMagicCharacter()
 	AttributeComp->SetDefaultHealth(20, 20);
 }
 
+FTransform AXMagicCharacter::SpawnTM(FName ScoketLocation)
+{
+	FVector HandLocation = GetMesh()->GetSocketLocation(ScoketLocation);
+
+	//设置碰撞形状大小
+	FCollisionShape Shape;
+	Shape.SetSphere(0.1f);
+
+	//忽略自己
+	FCollisionQueryParams Params;
+	Params.AddIgnoredActor(this);
+
+	FCollisionObjectQueryParams ObjParams;
+	ObjParams.AddObjectTypesToQuery(ECC_WorldDynamic);
+	ObjParams.AddObjectTypesToQuery(ECC_WorldStatic);
+	ObjParams.AddObjectTypesToQuery(ECC_Pawn);
+	ObjParams.AddObjectTypesToQuery(ECC_PhysicsBody);
+	ObjParams.AddObjectTypesToQuery(ECC_Vehicle);
+	ObjParams.AddObjectTypesToQuery(ECC_Destructible);
+
+	FVector TraceStart = CameraComp->GetComponentLocation();
+	FVector TraceEnd = CameraComp->GetComponentLocation() + (GetControlRotation().Vector() * 10000);
+
+	FHitResult Hit;
+	if (GetWorld()->SweepSingleByObjectType(Hit, TraceStart, TraceEnd, FQuat::Identity, ObjParams, Shape, Params))
+	{
+		TraceEnd = Hit.ImpactPoint;
+	}
+
+	FRotator ProjRotation = FRotationMatrix::MakeFromXZ(TraceEnd - HandLocation, TraceEnd - HandLocation).Rotator();
+
+	//返回闪现魔法的位置和角度
+	return FTransform(ProjRotation, HandLocation);
+}
+
+
+
 //左键轻攻击
 void AXMagicCharacter::LightAttack()
 {
@@ -26,18 +63,14 @@ void AXMagicCharacter::LightAttack()
 
 void AXMagicCharacter::LightAttack_TimeElapsed()
 {
-	if (ensure(ProjectileClass)) {
-		FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
-
-		//设置魔法的位置和角度
-		FTransform SpawnTM = FTransform(GetControlRotation(), HandLocation);
-
+	if (ensure(ProjectileClass)) 
+	{
 		//设置魔法特效的变量
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 		SpawnParams.Instigator = this;
 
-		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM, SpawnParams);
+		GetWorld()->SpawnActor<AActor>(ProjectileClass, SpawnTM("Muzzle_01"), SpawnParams);
 	}
 }
 
@@ -73,34 +106,12 @@ void AXMagicCharacter::SpawnProjectile(TSubclassOf<AActor> DashProjectile)
 {
 	if (ensure(DashProjectile))
 	{
-		FVector HandLocation = GetMesh()->GetSocketLocation("Muzzle_01");
-
 		//设置闪现魔法特效的变量
 		FActorSpawnParameters SpawnParams;
 		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 		SpawnParams.Instigator = this;
 
-		//设置碰撞形状大小
-		FCollisionShape Shape;
-		Shape.SetSphere(20.0f);
-
-		//忽略自己
-		FCollisionQueryParams Params;
-		Params.AddIgnoredActor(this);
-
-		FCollisionObjectQueryParams ObjParams;
-		ObjParams.AddObjectTypesToQuery(ECC_WorldDynamic);
-		ObjParams.AddObjectTypesToQuery(ECC_WorldStatic);
-		ObjParams.AddObjectTypesToQuery(ECC_Pawn);
-
-		FVector TraceStart = CameraComp->GetComponentLocation();
-		FVector TraceEnd = CameraComp->GetComponentLocation() + (GetControlRotation().Vector() * 1000);
-
-		FRotator ProjRotation = FRotationMatrix::MakeFromX(TraceEnd - HandLocation).Rotator();
-		//设置闪现魔法的位置和角度
-		FTransform SpawnTM = FTransform(ProjRotation, HandLocation);
-
-		GetWorld()->SpawnActor<AActor>(DashProjectile, SpawnTM, SpawnParams);
+		GetWorld()->SpawnActor<AActor>(DashProjectile, SpawnTM("Muzzle_01"), SpawnParams);
 	}
 }
 

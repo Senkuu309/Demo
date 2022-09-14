@@ -5,6 +5,7 @@
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "Component/XAttributeComponent.h"
 
 // Sets default values
 AXMagicProjectile::AXMagicProjectile()
@@ -16,7 +17,7 @@ AXMagicProjectile::AXMagicProjectile()
 	MoveComp->InitialSpeed = 1000.0f;
 	MoveComp->ProjectileGravityScale = 0.0f;
 
-	Damage = -20.f;
+	Damage = -20.0f;
 }
 
 void AXMagicProjectile::OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)

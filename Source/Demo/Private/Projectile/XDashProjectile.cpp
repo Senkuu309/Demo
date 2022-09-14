@@ -15,7 +15,9 @@ AXDashProjectile::AXDashProjectile()
 	TelePortDelay = 0.1f;
 
 	MoveComp->InitialSpeed = 3000.f;
-	MoveComp->ProjectileGravityScale = 2.5f;
+	MoveComp->ProjectileGravityScale = 0.0f;
+
+	Damage = 0.0f;
 }
 
 void AXDashProjectile::OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -31,11 +33,6 @@ void AXDashProjectile::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, 
 {
 	if (OtherActor && GetInstigator() != OtherActor)
 	{
-		UXAttributeComponent* AttritbuteComp = Cast<UXAttributeComponent>(OtherActor->GetComponentByClass(UXAttributeComponent::StaticClass()));
-		if (AttritbuteComp)
-		{
-			AttritbuteComp->ApplyHealthChange(-20);
-		}
 		Explode();
 	}
 }

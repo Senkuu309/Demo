@@ -24,7 +24,7 @@ AXProjectileBase::AXProjectileBase()
 	MoveComp->bRotationFollowsVelocity = true;
 	MoveComp->bInitialVelocityInLocalSpace = true;
 
-	Damage = -100.f;
+	Damage = 0.0f;
 }
 
 void AXProjectileBase::OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -37,7 +37,7 @@ void AXProjectileBase::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, 
 	if (OtherActor && GetInstigator() != OtherActor)
 	{
 		UXAttributeComponent* AttritbuteComp = Cast<UXAttributeComponent>(OtherActor->GetComponentByClass(UXAttributeComponent::StaticClass()));
-		if (AttritbuteComp)
+		if (AttritbuteComp && Damage < 0.0f)
 		{
 			AttritbuteComp->ApplyHealthChange(Damage);
 		}
