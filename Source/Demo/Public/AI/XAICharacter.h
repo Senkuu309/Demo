@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "XAICharacter.generated.h"
 
+class UPawnSensingComponent;
+
 UCLASS()
 class DEMO_API AXAICharacter : public ACharacter
 {
@@ -16,11 +18,11 @@ public:
 	AXAICharacter();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	virtual void PostInitializeComponents() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	UPawnSensingComponent* PawnSensingComp;
 
+	UFUNCTION()
+	void OnPawnSeen(APawn* Pawn);
 };

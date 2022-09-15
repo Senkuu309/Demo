@@ -17,7 +17,7 @@ AXDashProjectile::AXDashProjectile()
 	MoveComp->InitialSpeed = 3000.f;
 	MoveComp->ProjectileGravityScale = 0.0f;
 
-	Damage = 0.0f;
+	SphereComp->OnComponentHit.AddDynamic(this, &AXDashProjectile::OnActorHit);
 }
 
 void AXDashProjectile::OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -31,23 +31,18 @@ void AXDashProjectile::OnActorHit(UPrimitiveComponent* HitComponent, AActor* Oth
 
 void AXDashProjectile::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor && GetInstigator() != OtherActor)
+	/*if (OtherActor && GetInstigator() != OtherActor)
 	{
 		Explode();
-	}
+	}*/
 }
 
 
 void AXDashProjectile::BeginPlay()
 {
 	Super::BeginPlay();
-
 	SphereComp->IgnoreActorWhenMoving(this->GetInstigator(), true);
 
-	SphereComp->OnComponentHit.AddDynamic(this, &AXDashProjectile::OnActorHit);
-	SphereComp->OnComponentBeginOverlap.AddDynamic(this, &AXDashProjectile::OnActorOverlap);
-	
-	//GetWorldTimerManager().SetTimer(TimerHandle_DelayedDetonate, this, &AXDashProjectile::Explode, DetonateDelay);
 }
 
 void AXDashProjectile::Explode_Implementation()
@@ -74,6 +69,7 @@ void AXDashProjectile::TeleportInstigator()
 	{
 		ActorToTeleport->TeleportTo(GetActorLocation(), ActorToTeleport->GetActorRotation(), false, false);
 	}
+	Destroy();
 }
 
 

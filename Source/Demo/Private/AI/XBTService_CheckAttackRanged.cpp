@@ -23,7 +23,7 @@ void UXBTService_CheckAttackRanged::TickNode(UBehaviorTreeComponent& OwnerComp, 
 				{
 					float DistanceTo = FVector::Distance(TargetActor->GetActorLocation(), AIPawn->GetActorLocation());
 
-					bool bWithinRange = DistanceTo < 1000.f;
+					bool bWithinRange = DistanceTo < 2000.f;
 					
 					bool isVisible = false;
 					if (bWithinRange)

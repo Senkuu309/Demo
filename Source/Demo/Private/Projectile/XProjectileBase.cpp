@@ -18,13 +18,11 @@ AXProjectileBase::AXProjectileBase()
 	EffectComp = CreateDefaultSubobject<UParticleSystemComponent>("EffectComp");
 	EffectComp->SetupAttachment(SphereComp);
 
-	MoveComp = CreateDefaultSubobject<UProjectileMovementComponent>("MovementComp");
-	MoveComp->InitialSpeed = 8000.0f;
-	MoveComp->ProjectileGravityScale = 0.0f;
+	MoveComp = CreateDefaultSubobject<UProjectileMovementComponent>("MoveComp");
 	MoveComp->bRotationFollowsVelocity = true;
 	MoveComp->bInitialVelocityInLocalSpace = true;
-
-	Damage = 0.0f;
+	MoveComp->InitialSpeed = 8000.f;
+	MoveComp->ProjectileGravityScale = 0.0f;
 }
 
 void AXProjectileBase::OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -34,15 +32,7 @@ void AXProjectileBase::OnActorHit(UPrimitiveComponent* HitComponent, AActor* Oth
 
 void AXProjectileBase::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor && GetInstigator() != OtherActor)
-	{
-		UXAttributeComponent* AttritbuteComp = Cast<UXAttributeComponent>(OtherActor->GetComponentByClass(UXAttributeComponent::StaticClass()));
-		if (AttritbuteComp && Damage < 0.0f)
-		{
-			AttritbuteComp->ApplyHealthChange(Damage);
-		}
-		Explode();
-	}
+	Explode();
 }
 
 void AXProjectileBase::Explode_Implementation()
