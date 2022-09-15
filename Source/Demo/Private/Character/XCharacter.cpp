@@ -59,22 +59,29 @@ void AXCharacter::Tick(float DeltaTime)
 
 void AXCharacter::MoveForward(float value)
 {
-	FRotator ControlRot = GetControlRotation();
-	ControlRot.Pitch = 0.0f;
-	ControlRot.Roll = 0.0f;
+	if ((Controller != NULL) && (value != 0.0f) && Movable)
+	{
+		FRotator ControlRot = GetControlRotation();
+		ControlRot.Pitch = 0.0f;
+		ControlRot.Roll = 0.0f;
 
-	AddMovementInput(ControlRot.Vector(), value);
+		AddMovementInput(ControlRot.Vector(), value);
+	}
+	
 }
 
 void AXCharacter::MoveRight(float value)
 {
-	FRotator ControlRot = GetControlRotation();
-	ControlRot.Pitch = 0.0f;
-	ControlRot.Roll = 0.0f;
+	if ((Controller != NULL) && (value != 0.0f) && Movable)
+	{
+		FRotator ControlRot = GetControlRotation();
+		ControlRot.Pitch = 0.0f;
+		ControlRot.Roll = 0.0f;
 
-	FVector RightVector = FRotationMatrix(ControlRot).GetScaledAxis(EAxis::Y);
+		FVector RightVector = FRotationMatrix(ControlRot).GetScaledAxis(EAxis::Y);
 
-	AddMovementInput(RightVector, value);
+		AddMovementInput(RightVector, value);
+	}
 }
 	
 

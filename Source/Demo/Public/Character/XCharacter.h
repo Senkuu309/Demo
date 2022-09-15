@@ -20,6 +20,10 @@ public:
 	// Sets default values for this character's properties
 	AXCharacter();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Motion")
+	bool Movable = true;
+
+
 protected:
 
 	//相机臂组件
