@@ -2,4 +2,9 @@
 
 
 #include "Character/XSickleCharacter.h"
+#include "Component/XAttributeComponent.h"
 
+AXSickleCharacter::AXSickleCharacter()
+{
+	AttributeComp->SetDefaultHealth(100);
+}

@@ -3,10 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "BehaviorTree/BehaviorTreeTypes.h"
 #include "XAttributeTypes.generated.h"
 
 UENUM(BlueprintType)
-enum class EPropertyName : uint8
+enum class EAttributePropertyName : uint8
 {
 	EPropertyHP UMETA(DisplayName = "HP"),
 	EPropertyExp UMETA(DisplayName = "Exp"),
@@ -24,4 +25,15 @@ struct FAttributePropertyValue
 	float Current;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	float Max;
+};
+
+USTRUCT(BlueprintType)
+struct FSkillInputStruct
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+	FKey Key;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+	float InputTime = .5f;
 };

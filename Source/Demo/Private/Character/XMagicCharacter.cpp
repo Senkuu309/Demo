@@ -11,7 +11,7 @@
 AXMagicCharacter::AXMagicCharacter()
 {
 	AttackAnimDelay = 0.2f;
-	AttributeComp->SetDefaultHealth(20, 20);
+	AttributeComp->SetDefaultHealth(20);
 }
 
 FTransform AXMagicCharacter::SpawnTM(FName ScoketLocation)

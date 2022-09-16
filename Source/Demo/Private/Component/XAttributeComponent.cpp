@@ -14,10 +14,49 @@ UXAttributeComponent::UXAttributeComponent()
 	//Health = 100;
 }
 
-bool UXAttributeComponent::SetDefaultHealth(float _MaxHealth, float _CurrentHealth)
+FORCEINLINE FAttributePropertyValue& UXAttributeComponent::GetAttributePropertyStructWithName(EAttributePropertyName Name)
+{
+	return *AttributeProperties.Find(Name);
+}
+
+FORCEINLINE float UXAttributeComponent::GetAttributePropertyValueWithName(EAttributePropertyName Name)
+{
+	return AttributeProperties.Find(Name)->Current;
+}
+
+bool UXAttributeComponent::ModifyAttributePropertyValue(EAttributePropertyName Name, float Delta, bool bUpdateUI)
+{
+	if (Delta != 0.0f)
+	{
+		float OldValue = GetAttributePropertyValueWithName(Name);
+		return SetAttributePropertyValue(Name, OldValue + Delta, bUpdateUI);
+	}
+	return true;
+}
+
+bool UXAttributeComponent::SetAttributePropertyValue(EAttributePropertyName Name, float NewValue, bool bUpdateUI)
+{
+	if (AttributeProperties.Contains(Name))
+	{
+		FAttributePropertyValue CurrentValue = GetAttributePropertyStructWithName(Name);
+		CurrentValue.Current = FMath::Clamp(NewValue, CurrentValue.Min, CurrentValue.Max);
+		AttributeProperties.Add(Name, CurrentValue);
+		if (bUpdateUI)
+		{
+			UpdateAttributePropertyUI(Name);
+		}
+	}
+	return false;
+}
+
+void UXAttributeComponent::UpdateAttributePropertyUI(EAttributePropertyName Name)
+{
+	BP_UpdateAttributePropertyUI(Name);
+}
+bool UXAttributeComponent::SetDefaultHealth(float _MaxHealth)
 {
 	MaxHealth = _MaxHealth;
-	CurrentHealth = _CurrentHealth;
+	CurrentHealth = _MaxHealth;
 	
 	return true;
 }

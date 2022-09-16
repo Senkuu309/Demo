@@ -13,5 +13,8 @@ UCLASS()
 class DEMO_API AXSickleCharacter : public AXCharacter
 {
 	GENERATED_BODY()
+
+public:
+	AXSickleCharacter();
 	
 };
