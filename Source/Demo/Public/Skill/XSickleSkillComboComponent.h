@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "FSM/XSkillFSM.h"
 #include "XSickleSkillComboComponent.generated.h"
+
+class UXSkillFSMState;
+class UXSkillFSM;
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Blueprintable )
@@ -13,10 +15,11 @@ class DEMO_API UXSickleSkillComboComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+	UXSkillFSM* SickleSkillFSM;
 
 public:	
 	// Sets default values for this component's properties
 	UXSickleSkillComboComponent();
 
-	void AttackInput(int32 KeyID, UXSkillFSMState* CurrentState, TMap<int32, UXSkillFSMState*> SkillFSMStateMap, bool OKay);
+	void AttackInput(FKey KeyCode, UXSkillFSMState* SkillState);
 };

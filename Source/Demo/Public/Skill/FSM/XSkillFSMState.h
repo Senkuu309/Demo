@@ -19,7 +19,7 @@ public:
 	//Key ID
 	uint32 KeyID;
 
-	float InputTime;
+	float InputTime;;
 
 	//ID
 	int32 StateID;

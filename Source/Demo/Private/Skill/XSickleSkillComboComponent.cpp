@@ -13,3 +13,9 @@ UXSickleSkillComboComponent::UXSickleSkillComboComponent()
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
+
+void UXSickleSkillComboComponent::AttackInput(FKey KeyCode, UXSkillFSMState* SkillState)
+{
+
+}
+
