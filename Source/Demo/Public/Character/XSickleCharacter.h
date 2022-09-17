@@ -4,7 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "Character/XCharacter.h"
+#include "Component/XAttackComponent.h"
 #include "XSickleCharacter.generated.h"
+
 
 /**
  * 
@@ -16,5 +18,8 @@ class DEMO_API AXSickleCharacter : public AXCharacter
 
 public:
 	AXSickleCharacter();
-	
+
+	virtual void MBLAttack() override;
+
+	virtual void MBRAttack() override;
 };

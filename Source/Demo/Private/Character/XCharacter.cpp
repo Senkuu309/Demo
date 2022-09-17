@@ -8,6 +8,7 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "XInteractionComponent.h"
 #include "Component/XAttributeComponent.h"
+#include "Component/XAttackComponent.h"
 
 // Sets default values
 AXCharacter::AXCharacter()
@@ -33,6 +34,9 @@ AXCharacter::AXCharacter()
 
 	//创建血量组件
 	AttributeComp = CreateDefaultSubobject<UXAttributeComponent>("AttributeComp");
+
+	//创建攻击组件
+	AttackComp = CreateDefaultSubobject<UXAttackComponent>("AttackComp");
 }
 
 void AXCharacter::PostInitializeComponents()
@@ -102,6 +106,13 @@ void AXCharacter::OnHealthChanged(AActor* InstigatorActor, UXAttributeComponent*
 	}
 }
 
+void AXCharacter::OnAttacking(AActor* InstigatorActor, UXAttackComponent* OwningComp, FAttackStruct CurrentSkill)
+{
+	PlayAnimMontage(CurrentSkill.AttackAnim);
+	OwningComp->isAttacking = true;
+	OwningComp->InputBuffer = EInputType::EPropertyNone;
+}
+
 // Called to bind functionality to input
 void AXCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
@@ -117,5 +128,7 @@ void AXCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	PlayerInputComponent->BindAction("LightAttack", IE_Pressed, this, &AXCharacter::LightAttack);
 	PlayerInputComponent->BindAction("HeavyAttack", IE_Pressed, this, &AXCharacter::HeavyAttack);
+	PlayerInputComponent->BindAction("MBL", IE_Pressed, this, &AXCharacter::MBLAttack);
+	PlayerInputComponent->BindAction("MBR", IE_Pressed, this, &AXCharacter::MBRAttack);
 	PlayerInputComponent->BindAction("ExtraSkill", IE_Pressed, this, &AXCharacter::ExtraSkill);
 }

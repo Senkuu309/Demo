@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "DataAsset/XPrimaryDataAsset.h"
-#include "Component/XAttributeTypes.h"
+#include "Component/XComponentTypes.h"
 #include "XSkillPrimaryDataAsset.generated.h"
 
 /**

@@ -76,12 +76,10 @@ void AXMagicCharacter::LightAttack_TimeElapsed()
 
 void AXMagicCharacter::HeavyAttack()
 {
-
 }
 
 void AXMagicCharacter::HeavyAttack_TimeElapsed()
 {
-
 }
 
 //额外技能 按键E

@@ -4,12 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Component/XComponentTypes.h"
 #include "XCharacter.generated.h"
 
 class UCameraComponent;
 class USpringArmComponent;
 class UXInteractionComponent;
 class UXAttributeComponent;
+class UXAttackComponent;
 
 UCLASS(Abstract)
 class DEMO_API AXCharacter : public ACharacter
@@ -42,6 +44,10 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UXAttributeComponent* AttributeComp;
 
+	//¹¥»÷×é¼þ
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UXAttackComponent* AttackComp;
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -55,6 +61,12 @@ protected:
 	//ÓÒ¼üÖØ¹¥»÷
 	virtual void HeavyAttack() {};
 
+	//×ó¼ü¹¥»÷
+	virtual void MBLAttack() {};
+
+	//ÓÒ¼ü¹¥»÷
+	virtual void MBRAttack() {};
+
 	//¶îÍâ¼¼ÄÜ
 	virtual void ExtraSkill() {};
 
@@ -63,6 +75,9 @@ protected:
 	//½ÇÉ«ËÀÍö
 	UFUNCTION()
 	void OnHealthChanged(AActor* InstigatorActor, UXAttributeComponent*  OwningComp, float maxHealth, float newHealth, float Delta);
+	
+	UFUNCTION()
+	void OnAttacking(AActor* InstigatorActor, UXAttackComponent* OwningComp,FAttackStruct CurrentSkill);
 
 	void PostInitializeComponents();
 

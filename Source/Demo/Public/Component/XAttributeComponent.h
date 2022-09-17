@@ -3,10 +3,10 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "Component/XAttributeTypes.h"
+#include "Component/XComponentTypes.h"
 #include "XAttributeComponent.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnHealthChanged, AActor*, InstigatoActor, UXAttributeComponent*, OwningComp, float, maxHealth, float, newHealth, float, Delta);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnHealthChanged, AActor*, InstigatorActor, UXAttributeComponent*, OwningComp, float, maxHealth, float, newHealth, float, Delta);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Blueprintable )
 class DEMO_API UXAttributeComponent : public UActorComponent
@@ -41,11 +41,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool SetAttributePropertyValue(EAttributePropertyName Name, float NewValue, bool bUpdateUI);
-
-	UFUNCTION(BlueprintImplementableEvent)
-	void BP_UpdateAttributePropertyUI(EAttributePropertyName Name);
-	UFUNCTION()
-	virtual void UpdateAttributePropertyUI(EAttributePropertyName Name);
 
 	UFUNCTION(BlueprintCallable)
 	bool isAlive() const;

@@ -41,17 +41,8 @@ bool UXAttributeComponent::SetAttributePropertyValue(EAttributePropertyName Name
 		FAttributePropertyValue CurrentValue = GetAttributePropertyStructWithName(Name);
 		CurrentValue.Current = FMath::Clamp(NewValue, CurrentValue.Min, CurrentValue.Max);
 		AttributeProperties.Add(Name, CurrentValue);
-		if (bUpdateUI)
-		{
-			UpdateAttributePropertyUI(Name);
-		}
 	}
 	return false;
-}
-
-void UXAttributeComponent::UpdateAttributePropertyUI(EAttributePropertyName Name)
-{
-	BP_UpdateAttributePropertyUI(Name);
 }
 bool UXAttributeComponent::SetDefaultHealth(float _MaxHealth)
 {

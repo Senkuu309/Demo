@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BehaviorTreeTypes.h"
-#include "XAttributeTypes.generated.h"
+#include "XComponentTypes.generated.h"
 
 UENUM(BlueprintType)
 enum class EAttributePropertyName : uint8
@@ -37,3 +37,27 @@ struct FSkillInputStruct
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
 	float InputTime = .5f;
 };
+
+UENUM(BlueprintType)
+enum class EInputType : uint8
+{
+	EPropertyNone UMETA(DisplayName = "None"),
+	EPropertyMBL UMETA(DisplayName = "MBL"),
+	EPropertyMBR UMETA(DisplayName = "MBR"),
+	EPropertySMBL UMETA(DisplayName = "SMBL"),
+	EPropertySMBR UMETA(DisplayName = "SMBR"),
+};
+
+USTRUCT(BlueprintType)
+struct FAttackStruct
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+	FName SkillName;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+	TMap<EInputType, FName> NextCombo;
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
+	UAnimMontage* AttackAnim;
+};
+
