@@ -26,7 +26,7 @@ public:
 	bool Movable = true;
 
 
-protected:
+public:
 
 	//Ïà»ú±Û×é¼þ
 	UPROPERTY(VisibleAnywhere)
@@ -48,6 +48,21 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UXAttackComponent* AttackComp;
 
+	//ÎäÆ÷×é¼þ
+	UPROPERTY(BlueprintReadWrite)
+	UStaticMeshComponent* WeaponComp;
+
+	//ÎäÆ÷Î»ÖÃ
+	UPROPERTY(VisibleAnywhere)
+	FVector WeaponLocation1;
+
+	UPROPERTY(VisibleAnywhere)
+	FVector WeaponLocation2;
+
+	UPROPERTY(VisibleAnywhere)
+	FVector WeaponLocation3;
+
+
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
@@ -55,20 +70,14 @@ protected:
 
 	void MoveRight(float value);
 
-	//×ó¼üÇá¹¥»÷
-	virtual void LightAttack() {};
-
-	//ÓÒ¼üÖØ¹¥»÷
-	virtual void HeavyAttack() {};
-
 	//×ó¼ü¹¥»÷
-	virtual void MBLAttack() {};
+	virtual void MBLAttack();
 
 	//ÓÒ¼ü¹¥»÷
-	virtual void MBRAttack() {};
+	virtual void MBRAttack();
 
 	//¶îÍâ¼¼ÄÜ
-	virtual void ExtraSkill() {};
+	virtual void ExtraSkill();
 
 	void PrimaryInteract();
 

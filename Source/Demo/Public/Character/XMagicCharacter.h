@@ -41,12 +41,12 @@ public:
 protected:
 
 	//左键轻攻击
-	virtual void LightAttack() override;
-	void LightAttack_TimeElapsed();
+	virtual void MBLAttack() override;
+	void MBLAttack_TimeElapsed();
 
 	//右键重攻击
-	virtual void HeavyAttack() override;
-	void HeavyAttack_TimeElapsed();
+	virtual void MBRAttack() override;
+	void MBRAttack_TimeElapsed();
 
 	//额外技能：魔法闪现
 	virtual void ExtraSkill() override;

@@ -38,7 +38,7 @@ void UXAttackComponent::SkillInput(EInputType InputType)
 			{
 				OnAttacking.Broadcast(nullptr, this, *AttackSkillData.Find(*SkillName));
 			}
-			else ComboEnd();
+			//else ComboEnd();
 		}
 		else {
 			InputBuffer = InputType;

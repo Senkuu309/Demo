@@ -18,8 +18,4 @@ class DEMO_API AXSickleCharacter : public AXCharacter
 
 public:
 	AXSickleCharacter();
-
-	virtual void MBLAttack() override;
-
-	virtual void MBRAttack() override;
 };

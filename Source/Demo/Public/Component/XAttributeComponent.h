@@ -51,7 +51,7 @@ public:
 	UFUNCTION()
 	bool SetDefaultHealth(float _MaxHealth);
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	bool ApplyHealthChange(float Delta);
 
 };

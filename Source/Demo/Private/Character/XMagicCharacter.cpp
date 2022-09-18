@@ -11,7 +11,7 @@
 AXMagicCharacter::AXMagicCharacter()
 {
 	AttackAnimDelay = 0.2f;
-	AttributeComp->SetDefaultHealth(20);
+	AttributeComp->SetDefaultHealth(100);
 }
 
 FTransform AXMagicCharacter::SpawnTM(FName ScoketLocation)
@@ -52,16 +52,16 @@ FTransform AXMagicCharacter::SpawnTM(FName ScoketLocation)
 
 
 //×ó¼üÇá¹¥»÷
-void AXMagicCharacter::LightAttack()
+void AXMagicCharacter::MBLAttack()
 {
 	PlayAnimMontage(AttackAnim);
 
-	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &AXMagicCharacter::LightAttack_TimeElapsed, AttackAnimDelay);
+	GetWorldTimerManager().SetTimer(TimerHandle_PrimaryAttack, this, &AXMagicCharacter::MBLAttack_TimeElapsed, AttackAnimDelay);
 
 	//GetWorldTimerManager().ClearTimer(TimerHandle_PrimaryAttack);
 }
 
-void AXMagicCharacter::LightAttack_TimeElapsed()
+void AXMagicCharacter::MBLAttack_TimeElapsed()
 {
 	if (ensure(ProjectileClass)) 
 	{
@@ -74,11 +74,11 @@ void AXMagicCharacter::LightAttack_TimeElapsed()
 	}
 }
 
-void AXMagicCharacter::HeavyAttack()
+void AXMagicCharacter::MBRAttack()
 {
 }
 
-void AXMagicCharacter::HeavyAttack_TimeElapsed()
+void AXMagicCharacter::MBRAttack_TimeElapsed()
 {
 }
 

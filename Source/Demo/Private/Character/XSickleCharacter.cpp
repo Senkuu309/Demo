@@ -4,20 +4,14 @@
 #include "Character/XSickleCharacter.h"
 #include "Component/XAttributeComponent.h"
 #include "Component/XAttackComponent.h"
+#include "Character/XCharacter.h"
 
 AXSickleCharacter::AXSickleCharacter()
 {
-	AttributeComp->SetDefaultHealth(100);
-}
-//×ó¼ü¹¥»÷
-void AXSickleCharacter::MBLAttack()
-{
-	AttackComp->SkillInput(EInputType::EPropertyMBL);
-		
-}
+	AttributeComp->SetDefaultHealth(1);
+	WeaponComp->SetupAttachment(GetMesh(), TEXT("hand_rSocket"));
 
-//ÓÒ¼ü¹¥»÷
-void AXSickleCharacter::MBRAttack()
-{
-	AttackComp->SkillInput(EInputType::EPropertyMBR);
+	WeaponLocation1 = GetMesh()->GetSocketLocation("hand_rSocket");
+	WeaponLocation2 = WeaponComp->GetSocketLocation("Mid");
+	WeaponLocation3 = WeaponComp->GetSocketLocation("End");
 }

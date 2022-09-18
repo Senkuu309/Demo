@@ -37,6 +37,12 @@ AXCharacter::AXCharacter()
 
 	//创建攻击组件
 	AttackComp = CreateDefaultSubobject<UXAttackComponent>("AttackComp");
+
+	//创建武器组件
+	WeaponComp = CreateDefaultSubobject<UStaticMeshComponent>("WeaponComp");
+	WeaponLocation1 = GetMesh()->GetSocketLocation("hand_rSocket");
+	WeaponLocation2 = WeaponComp->GetSocketLocation("Mid");
+	WeaponLocation3 = WeaponComp->GetSocketLocation("End");
 }
 
 void AXCharacter::PostInitializeComponents()
@@ -89,6 +95,21 @@ void AXCharacter::MoveRight(float value)
 }
 	
 
+void AXCharacter::MBLAttack()
+{
+	AttackComp->SkillInput(EInputType::EPropertyMBL);
+}
+
+void AXCharacter::MBRAttack()
+{
+	AttackComp->SkillInput(EInputType::EPropertyMBR);
+}
+
+void AXCharacter::ExtraSkill()
+{
+	AttackComp->SkillInput(EInputType::EPropertyExtra);
+}
+
 void AXCharacter::PrimaryInteract()
 {
 	if (InteractComp)
@@ -126,8 +147,6 @@ void AXCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &AXCharacter::PrimaryInteract);
 
-	PlayerInputComponent->BindAction("LightAttack", IE_Pressed, this, &AXCharacter::LightAttack);
-	PlayerInputComponent->BindAction("HeavyAttack", IE_Pressed, this, &AXCharacter::HeavyAttack);
 	PlayerInputComponent->BindAction("MBL", IE_Pressed, this, &AXCharacter::MBLAttack);
 	PlayerInputComponent->BindAction("MBR", IE_Pressed, this, &AXCharacter::MBRAttack);
 	PlayerInputComponent->BindAction("ExtraSkill", IE_Pressed, this, &AXCharacter::ExtraSkill);

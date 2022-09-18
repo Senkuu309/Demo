@@ -44,6 +44,7 @@ enum class EInputType : uint8
 	EPropertyNone UMETA(DisplayName = "None"),
 	EPropertyMBL UMETA(DisplayName = "MBL"),
 	EPropertyMBR UMETA(DisplayName = "MBR"),
+	EPropertyExtra UMETA(DisplayName = "Extra"),
 	EPropertySMBL UMETA(DisplayName = "SMBL"),
 	EPropertySMBR UMETA(DisplayName = "SMBR"),
 };

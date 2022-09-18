@@ -11,7 +11,8 @@ bool UXAttributeComponent::isAlive() const
 // Sets default values for this component's properties
 UXAttributeComponent::UXAttributeComponent()
 {
-	//Health = 100;
+	MaxHealth = 200;
+	CurrentHealth = 200;
 }
 
 FORCEINLINE FAttributePropertyValue& UXAttributeComponent::GetAttributePropertyStructWithName(EAttributePropertyName Name)
