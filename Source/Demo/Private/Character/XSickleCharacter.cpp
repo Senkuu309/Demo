@@ -8,7 +8,7 @@
 
 AXSickleCharacter::AXSickleCharacter()
 {
-	AttributeComp->SetDefaultHealth(1);
+	AttributeComp->SetDefaultHealth(100);
 	WeaponComp->SetupAttachment(GetMesh(), TEXT("hand_rSocket"));
 
 	WeaponLocation1 = GetMesh()->GetSocketLocation("hand_rSocket");

@@ -6,12 +6,16 @@
 #include "AIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "DrawDebugHelpers.h"
+#include "Component/XAttributeComponent.h"
 
 // Sets default values
 AXAICharacter::AXAICharacter()
 {
 	PawnSensingComp = CreateDefaultSubobject<UPawnSensingComponent>("PawnSensingComp");
 
+	//创建血量组件
+	AttributeComp = CreateDefaultSubobject<UXAttributeComponent>("AttributeComp");
+	AttributeComp->SetDefaultHealth(100);
 }
 
 void AXAICharacter::PostInitializeComponents()

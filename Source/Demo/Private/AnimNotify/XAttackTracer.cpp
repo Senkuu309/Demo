@@ -35,7 +35,7 @@ void UXAttackTracer::NotifyTick(USkeletalMeshComponent* MeshComp, UAnimSequenceB
 			if (!HitActors.Contains(HitActor))
 			{
 				HitActors.Add(HitActor);
-				UGameplayStatics::ApplyDamage(HitActor, 10.f, EventInstigator, Player, DamageTypeClass);
+				UGameplayStatics::ApplyDamage(HitActor, -10.f, EventInstigator, Player, DamageTypeClass);
 			}
 		}
 		UKismetSystemLibrary::BoxTraceMulti(Player->GetWorld(), SocketLocation2, Player->WeaponComp->GetSocketLocation("Mid"), FVector(5, 30, 50), Player->GetMesh()->GetSocketRotation("hand_rSocket"),
@@ -46,7 +46,7 @@ void UXAttackTracer::NotifyTick(USkeletalMeshComponent* MeshComp, UAnimSequenceB
 			if (!HitActors.Contains(HitActor))
 			{
 				HitActors.Add(HitActor);
-				UGameplayStatics::ApplyDamage(HitActor, 10.f, EventInstigator, Player, DamageTypeClass);
+				UGameplayStatics::ApplyDamage(HitActor, -10.f, EventInstigator, Player, DamageTypeClass);
 			}
 		}
 		UKismetSystemLibrary::BoxTraceMulti(Player->GetWorld(), SocketLocation3, Player->WeaponComp->GetSocketLocation("End"), FVector(5, 30, 50), Player->GetMesh()->GetSocketRotation("hand_rSocket"),
@@ -57,7 +57,7 @@ void UXAttackTracer::NotifyTick(USkeletalMeshComponent* MeshComp, UAnimSequenceB
 			if (!HitActors.Contains(HitActor))
 			{
 				HitActors.Add(HitActor);
-				UGameplayStatics::ApplyDamage(HitActor, 10.f, EventInstigator, Player, DamageTypeClass);
+				UGameplayStatics::ApplyDamage(HitActor, -10.f, EventInstigator, Player, DamageTypeClass);
 			}
 		}
 		SocketLocation1 = Player->GetMesh()->GetSocketLocation("hand_rSocket");

@@ -21,7 +21,13 @@ public:
 
 	void BeginPlay();
 
-protected:
+public:
+
+	//事件发起者
+	AController* EventInstigator;
+
+	TSubclassOf<UDamageType> DamageTypeClass;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Effects")
 	UParticleSystem* ImpactVFX;
 

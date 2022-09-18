@@ -7,6 +7,7 @@
 #include "XAICharacter.generated.h"
 
 class UPawnSensingComponent;
+class UXAttributeComponent;
 
 UCLASS()
 class DEMO_API AXAICharacter : public ACharacter
@@ -17,7 +18,10 @@ public:
 	// Sets default values for this character's properties
 	AXAICharacter();
 
-protected:
+public:
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UXAttributeComponent* AttributeComp;
+
 	virtual void PostInitializeComponents() override;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
