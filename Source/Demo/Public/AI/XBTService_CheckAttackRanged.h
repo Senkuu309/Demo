@@ -9,12 +9,17 @@
 /**
  * 
  */
+class AXCharacter;
+
 UCLASS()
 class DEMO_API UXBTService_CheckAttackRanged : public UBTService
 {
 	GENERATED_BODY()
 
 protected:
+
+	UPROPERTY(EditAnywhere, Category = "AI")
+	TSubclassOf<AXCharacter> CharacterClass;
 
 	UPROPERTY(EditAnywhere, Category = "AI")
 	FBlackboardKeySelector AttackRangeKey;

@@ -4,6 +4,8 @@
 #include "AI/XBTService_CheckAttackRanged.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "AIController.h"
+#include "Character/XCharacter.h"
+#include "Kismet/GameplayStatics.h"
 
 void UXBTService_CheckAttackRanged::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
@@ -12,6 +14,8 @@ void UXBTService_CheckAttackRanged::TickNode(UBehaviorTreeComponent& OwnerComp, 
 	UBlackboardComponent* BlackboardComp = OwnerComp.GetBlackboardComponent();
 	if (ensure(BlackboardComp))
 	{
+		TArray<AActor*> AllActors;
+		UGameplayStatics::GetAllActorsOfClass(GetWorld(),CharacterClass, AllActors);
 		AActor* TargetActor = Cast<AActor>(BlackboardComp->GetValueAsObject("TargetActor"));
 		if (TargetActor)
 		{

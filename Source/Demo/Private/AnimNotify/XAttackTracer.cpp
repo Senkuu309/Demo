@@ -28,7 +28,7 @@ void UXAttackTracer::NotifyTick(USkeletalMeshComponent* MeshComp, UAnimSequenceB
 	if (Player)
 	{
 		UKismetSystemLibrary::BoxTraceMulti(Player->GetWorld(), SocketLocation1, Player->GetMesh()->GetSocketLocation("hand_rSocket"), FVector(5, 30, 50), Player->GetMesh()->GetSocketRotation("hand_rSocket"),
-			ETraceTypeQuery::TraceTypeQuery4, false, ActorsToIgnore, EDrawDebugTrace::None, HitResults, true);
+			ETraceTypeQuery::TraceTypeQuery4, false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResults, true);
 		for (int i = 0; i < HitResults.Num(); i++)
 		{
 			AActor* HitActor = HitResults[i].GetActor();
@@ -39,7 +39,7 @@ void UXAttackTracer::NotifyTick(USkeletalMeshComponent* MeshComp, UAnimSequenceB
 			}
 		}
 		UKismetSystemLibrary::BoxTraceMulti(Player->GetWorld(), SocketLocation2, Player->WeaponComp->GetSocketLocation("Mid"), FVector(5, 30, 50), Player->GetMesh()->GetSocketRotation("hand_rSocket"),
-			ETraceTypeQuery::TraceTypeQuery4, false, ActorsToIgnore, EDrawDebugTrace::None, HitResults, true);
+			ETraceTypeQuery::TraceTypeQuery4, false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResults, true);
 		for (int i = 0; i < HitResults.Num(); i++)
 		{
 			AActor* HitActor = HitResults[i].GetActor();
@@ -50,7 +50,7 @@ void UXAttackTracer::NotifyTick(USkeletalMeshComponent* MeshComp, UAnimSequenceB
 			}
 		}
 		UKismetSystemLibrary::BoxTraceMulti(Player->GetWorld(), SocketLocation3, Player->WeaponComp->GetSocketLocation("End"), FVector(5, 30, 50), Player->GetMesh()->GetSocketRotation("hand_rSocket"),
-			ETraceTypeQuery::TraceTypeQuery4, false, ActorsToIgnore, EDrawDebugTrace::None, HitResults, true);
+			ETraceTypeQuery::TraceTypeQuery4, false, ActorsToIgnore, EDrawDebugTrace::ForDuration, HitResults, true);
 		for (int i = 0; i < HitResults.Num(); i++)
 		{
 			AActor* HitActor = HitResults[i].GetActor();
