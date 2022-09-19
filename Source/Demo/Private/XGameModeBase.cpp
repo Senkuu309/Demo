@@ -23,6 +23,30 @@ void AXGameModeBase::StartPlay()
 
 void AXGameModeBase::SpawnBotTimerElapsed()
 {
+	int32 NrOfAliveBots = 0;
+	for (TActorIterator<AXAICharacter> It(GetWorld()); It; ++It)
+	{
+		AXAICharacter* Bot = *It;
+		if (ensure(Bot->AttributeComp) && Bot->AttributeComp->isAlive())
+		{
+			NrOfAliveBots++;
+		}
+	}
+
+	
+
+	float MaxBotCount = 10.0f;
+
+	/*if (ensure(DiffcultyCurve))
+	{
+		MaxBotCount = DiffcultyCurve->GetFloatValue(GetWorld()->TimeSeconds);
+	}*/
+	UE_LOG(LogTemp, Warning, TEXT("Found %i alive!  MaxBotCount is %f!"), NrOfAliveBots, MaxBotCount);
+	if (NrOfAliveBots >= MaxBotCount)
+	{
+		return;
+	}
+
 	UEnvQueryInstanceBlueprintWrapper* QueryInstance = UEnvQueryManager::RunEQSQuery(this, SpawnBotQuery, this, EEnvQueryRunMode::RandomBest5Pct, nullptr);
 
 	QueryInstance->GetOnQueryFinishedEvent().AddDynamic(this, &AXGameModeBase::OnQueryCompleted);
@@ -37,38 +61,11 @@ void AXGameModeBase::OnQueryCompleted(UEnvQueryInstanceBlueprintWrapper* QueryIn
 		return;
 	}
 
-	int32 NrOfAliveBots = 0;
-	for(TActorIterator<AXAICharacter> It(GetWorld()); It; ++It) 
-	{
-		AXAICharacter* Bot = *It;
-		if (Bot->AttributeComp && Bot->AttributeComp->isAlive())
-		{
-			NrOfAliveBots++;
-		}
-	}
-
-	float MaxBotCount = 10.0f;
-
-	if (DiffcultyCurve)
-	{
-		MaxBotCount = DiffcultyCurve->GetFloatValue(GetWorld()->TimeSeconds);
-	}
-
-
-	if (NrOfAliveBots >= MaxBotCount)
-	{
-		return;
-	}
-
-	
-
-	
 	TArray<FVector> Locations = QueryInstance->GetResultsAsLocations();
 
 	if (Locations.IsValidIndex(0))
 	{
 		GetWorld()->SpawnActor<AActor>(AIClass, Locations[0], FRotator::ZeroRotator);
 	}
-
 }
 

@@ -15,10 +15,10 @@ class DEMO_API UXAttributeComponent : public UActorComponent
 
 protected:
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "Attribute")
 	float MaxHealth;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(BlueprintReadOnly, Category = "Attribute")
 	float CurrentHealth;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeProperty")
@@ -51,7 +51,7 @@ public:
 	UFUNCTION()
 	bool SetDefaultHealth(float _MaxHealth);
 
-	UFUNCTION(BlueprintCallable)
-	bool ApplyHealthChange(float Delta);
+	UFUNCTION(BlueprintCallable, Category = "Attribute")
+	bool ApplyHealthChange(AActor* InstigatorActor, float Delta);
 
 };

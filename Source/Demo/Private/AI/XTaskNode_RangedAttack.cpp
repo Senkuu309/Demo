@@ -26,6 +26,7 @@ EBTNodeResult::Type UXTaskNode_RangedAttack::ExecuteTask(UBehaviorTreeComponent&
 		}
 
 		FActorSpawnParameters Params;
+		Params.Instigator = MyController->GetPawn();
 		Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 		FRotator MuzzleRotation = (TargetActor->GetActorLocation() - MuzzleLocation).Rotation();

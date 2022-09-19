@@ -53,11 +53,21 @@ bool UXAttributeComponent::SetDefaultHealth(float _MaxHealth)
 	return true;
 }
 
-bool UXAttributeComponent::ApplyHealthChange(float Delta)
+bool UXAttributeComponent::ApplyHealthChange(AActor* InstigatorActor, float Delta)
 {
-	CurrentHealth += Delta;
+	//CurrentHealth += Delta;
+	if (CurrentHealth <= 0.0f && Delta < 0.0f) 
+	{
+		return true;
+	}
+	if (CurrentHealth >= MaxHealth && Delta > 0.0f)
+	{
+		return true;
+	}
 
-	OnHealthChanged.Broadcast(nullptr, this, MaxHealth, CurrentHealth, Delta);
+	CurrentHealth = FMath::Clamp(CurrentHealth + Delta, 0.0f, MaxHealth);
+
+	OnHealthChanged.Broadcast(InstigatorActor, this, MaxHealth, CurrentHealth, Delta);
 
 	return true;
 }

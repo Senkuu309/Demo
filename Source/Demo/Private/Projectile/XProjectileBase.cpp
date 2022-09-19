@@ -7,6 +7,8 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Component/XAttributeComponent.h"
+#include "AI/XAICharacter.h"
+#include "EngineUtils.h"
 
 // Sets default values
 AXProjectileBase::AXProjectileBase()
@@ -55,6 +57,11 @@ void AXProjectileBase::BeginPlay()
 {
 	Super::BeginPlay();
 	SphereComp->IgnoreActorWhenMoving(this->GetInstigator(), true);
+	for (TActorIterator<AXAICharacter> It(GetWorld()); It; ++It)
+	{
+		AXAICharacter* Itself = *It;
+		SphereComp->IgnoreActorWhenMoving(Itself, true);
+	}
 }
 
 

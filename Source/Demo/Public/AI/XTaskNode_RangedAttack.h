@@ -6,6 +6,8 @@
 #include "BehaviorTree/BTTaskNode.h"
 #include "XTaskNode_RangedAttack.generated.h"
 
+class AXAICharacter;
+
 /**
  * 
  */
@@ -15,6 +17,8 @@ class DEMO_API UXTaskNode_RangedAttack : public UBTTaskNode
 	GENERATED_BODY()
 
 protected:
+	UPROPERTY(EditAnywhere)
+	AXAICharacter* IgnoreSelf; 
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> ProjectileClass;
