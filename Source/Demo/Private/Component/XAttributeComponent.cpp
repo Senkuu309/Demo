@@ -58,11 +58,11 @@ bool UXAttributeComponent::ApplyHealthChange(AActor* InstigatorActor, float Delt
 	//CurrentHealth += Delta;
 	if (CurrentHealth <= 0.0f && Delta < 0.0f) 
 	{
-		return true;
+		return false;
 	}
 	if (CurrentHealth >= MaxHealth && Delta > 0.0f)
 	{
-		return true;
+		return false;
 	}
 
 	CurrentHealth = FMath::Clamp(CurrentHealth + Delta, 0.0f, MaxHealth);

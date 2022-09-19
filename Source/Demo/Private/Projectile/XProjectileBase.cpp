@@ -57,11 +57,6 @@ void AXProjectileBase::BeginPlay()
 {
 	Super::BeginPlay();
 	SphereComp->IgnoreActorWhenMoving(this->GetInstigator(), true);
-	for (TActorIterator<AXAICharacter> It(GetWorld()); It; ++It)
-	{
-		AXAICharacter* Itself = *It;
-		SphereComp->IgnoreActorWhenMoving(Itself, true);
-	}
 }
 
 

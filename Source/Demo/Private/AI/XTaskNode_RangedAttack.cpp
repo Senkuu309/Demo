@@ -27,6 +27,9 @@ EBTNodeResult::Type UXTaskNode_RangedAttack::ExecuteTask(UBehaviorTreeComponent&
 
 		FActorSpawnParameters Params;
 		Params.Instigator = MyController->GetPawn();
+
+		UE_LOG(LogTemp, Warning, TEXT("The projectile intigator is %s"), *GetNameSafe(Params.Instigator));
+
 		Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 
 		FRotator MuzzleRotation = (TargetActor->GetActorLocation() - MuzzleLocation).Rotation();

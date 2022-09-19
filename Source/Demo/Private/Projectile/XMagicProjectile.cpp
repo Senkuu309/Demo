@@ -21,7 +21,7 @@ AXMagicProjectile::AXMagicProjectile()
 
 void AXMagicProjectile::OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-	ACharacter* Player = Cast<AXCharacter>(GetInstigator());
+	ACharacter* Player = Cast<ACharacter>(GetInstigator());
 	if (OtherActor && Player != OtherActor)
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, EventInstigator, Player, DamageTypeClass);

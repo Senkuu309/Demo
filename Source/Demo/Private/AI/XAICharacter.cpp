@@ -16,7 +16,7 @@ AXAICharacter::AXAICharacter()
 
 	//创建血量组件
 	AttributeComp = CreateDefaultSubobject<UXAttributeComponent>("AttributeComp");
-	AttributeComp->SetDefaultHealth(1);
+	AttributeComp->SetDefaultHealth(2);
 }
 
 void AXAICharacter::PostInitializeComponents()
