@@ -8,6 +8,8 @@
 #include "DrawDebugHelpers.h"
 #include "Component/XAttributeComponent.h"
 #include "BrainComponent.h"
+#include "Blueprint/UserWidget.h"
+#include "UserWidget/XWorldUserWidget.h"
 
 // Sets default values
 AXAICharacter::AXAICharacter()
@@ -16,7 +18,7 @@ AXAICharacter::AXAICharacter()
 
 	//创建血量组件
 	AttributeComp = CreateDefaultSubobject<UXAttributeComponent>("AttributeComp");
-	AttributeComp->SetDefaultHealth(2);
+	AttributeComp->SetDefaultHealth(50);
 
 	TimeHitParamName = "TimeToHit";
 }
@@ -36,6 +38,19 @@ void AXAICharacter::OnHealthChanged(AActor* InstigatorActor, UXAttributeComponen
 		if (InstigatorActor != this)
 		{
 			SetTargetActor(InstigatorActor);
+		}
+	
+		if (ActiveHealthBar == nullptr)
+		{
+			if (ensure(HealthBarWidgetClass))
+			{
+				ActiveHealthBar = CreateWidget<UXWorldUserWidget>(GetWorld(), HealthBarWidgetClass);
+				if (ActiveHealthBar)
+				{
+					ActiveHealthBar->AttachedActor = this;
+					ActiveHealthBar->AddToViewport();
+				}
+			}
 		}
 
 		GetMesh()->SetScalarParameterValueOnMaterials(TimeHitParamName, GetWorld()->TimeSeconds);

@@ -8,6 +8,8 @@
 
 class UPawnSensingComponent;
 class UXAttributeComponent;
+class UUserWidget;
+class UXWorldUserWidget;
 
 UCLASS()
 class DEMO_API AXAICharacter : public ACharacter
@@ -24,7 +26,12 @@ public:
 
 	virtual void PostInitializeComponents() override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UXWorldUserWidget* ActiveHealthBar;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UUserWidget> HealthBarWidgetClass;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Effects")
 	FName TimeHitParamName;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")

@@ -19,7 +19,6 @@ void UXAttackTracer::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequence
 		SocketLocation1 = Player->GetMesh()->GetSocketLocation("hand_rSocket");
 		SocketLocation2 = Player->WeaponComp->GetSocketLocation("Mid");
 		SocketLocation3 = Player->WeaponComp->GetSocketLocation("End");
-		UE_LOG(LogTemp, Warning, TEXT("%f,%f,%f"), SocketLocation2.X, SocketLocation2.Y, SocketLocation2.Z );
 	}
 }
 

@@ -3,30 +3,38 @@
 
 #include "Component/XAttributeComponent.h"
 
-bool UXAttributeComponent::isAlive() const
-{
-	return CurrentHealth > 0.0f;
-}
-
-bool UXAttributeComponent::IsActorAlive(AActor* FromActor)
-{
-	if (FromActor)
-	{
-		UXAttributeComponent* AttributeComp = Cast<UXAttributeComponent>(FromActor->GetComponentByClass(UXAttributeComponent::StaticClass()));
-		if (AttributeComp)
-		{
-			return AttributeComp->isAlive();
-		}
-	}
-	return false;
-}
-
 // Sets default values for this component's properties
 UXAttributeComponent::UXAttributeComponent()
 {
 	MaxHealth = 200;
 	CurrentHealth = 200;
 }
+
+bool UXAttributeComponent::isAlive() const
+{
+	return CurrentHealth > 0.0f;
+}
+
+UXAttributeComponent* UXAttributeComponent::GetAttributes(AActor* FromActor)
+{
+	if (FromActor)
+	{
+		return Cast<UXAttributeComponent>(FromActor->GetComponentByClass(UXAttributeComponent::StaticClass()));
+	}
+	return nullptr;
+}
+
+bool UXAttributeComponent::IsActorAlive(AActor* FromActor)
+{
+	UXAttributeComponent* AttributeComp = GetAttributes(FromActor);
+	if (AttributeComp)
+	{
+		return AttributeComp->isAlive();
+	}
+	return false;
+}
+
+
 
 FORCEINLINE FAttributePropertyValue& UXAttributeComponent::GetAttributePropertyStructWithName(EAttributePropertyName Name)
 {

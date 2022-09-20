@@ -28,7 +28,10 @@ public:
 
 	UXAttributeComponent();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
+	static UXAttributeComponent* GetAttributes(AActor* FromActor);
+
+	UFUNCTION(BlueprintCallable)
 	static bool IsActorAlive(AActor* FromActor);
 
 	UFUNCTION(BlueprintPure)
