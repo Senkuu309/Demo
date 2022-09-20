@@ -34,10 +34,8 @@ void UXBTService_CheckAttackRanged::TickNode(UBehaviorTreeComponent& OwnerComp, 
 					{
 						isVisible = MyController->LineOfSightTo(TargetActor);
 					}
-
 					BlackboardComp->SetValueAsBool(AttackRangeKey.SelectedKeyName, (bWithinRange && isVisible));
 				}
-				
 			}
 		}
 	}

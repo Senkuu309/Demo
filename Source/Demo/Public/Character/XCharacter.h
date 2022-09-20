@@ -25,7 +25,6 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Motion")
 	bool Movable = true;
 
-
 public:
 
 	//相机臂组件

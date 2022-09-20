@@ -71,5 +71,3 @@ void AXDashProjectile::TeleportInstigator()
 	}
 	Destroy();
 }
-
-

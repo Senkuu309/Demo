@@ -21,7 +21,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Attribute")
 	float CurrentHealth;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeProperty")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attribute")
 	TMap<EAttributePropertyName, FAttributePropertyValue> AttributeProperties;
 	
 public:	

@@ -49,8 +49,6 @@ FTransform AXMagicCharacter::SpawnTM(FName ScoketLocation)
 	return FTransform(ProjRotation, HandLocation);
 }
 
-
-
 //×ó¼üÇá¹¥»÷
 void AXMagicCharacter::MBLAttack()
 {
