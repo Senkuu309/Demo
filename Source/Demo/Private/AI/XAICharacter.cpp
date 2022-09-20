@@ -17,6 +17,8 @@ AXAICharacter::AXAICharacter()
 	//创建血量组件
 	AttributeComp = CreateDefaultSubobject<UXAttributeComponent>("AttributeComp");
 	AttributeComp->SetDefaultHealth(2);
+
+	TimeHitParamName = "TimeToHit";
 }
 
 void AXAICharacter::PostInitializeComponents()
@@ -36,6 +38,8 @@ void AXAICharacter::OnHealthChanged(AActor* InstigatorActor, UXAttributeComponen
 			SetTargetActor(InstigatorActor);
 		}
 
+		GetMesh()->SetScalarParameterValueOnMaterials(TimeHitParamName, GetWorld()->TimeSeconds);
+
 		APlayerController* PC = Cast<APlayerController>(GetController());
 		DisableInput(PC);
 		if (newHealth <= 0.0f)
@@ -48,8 +52,6 @@ void AXAICharacter::OnHealthChanged(AActor* InstigatorActor, UXAttributeComponen
 
 			GetMesh()->SetAllBodiesSimulatePhysics(true);
 			GetMesh()->SetCollisionProfileName("Ragdoll");
-
-
 
 			SetLifeSpan(10.0f);
 		}

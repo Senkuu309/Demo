@@ -26,8 +26,10 @@ protected:
 	
 public:	
 
-	// Sets default values for this component's properties
 	UXAttributeComponent();
+
+	UFUNCTION()
+	static bool IsActorAlive(AActor* FromActor);
 
 	UFUNCTION(BlueprintPure)
 	FORCEINLINE FAttributePropertyValue& GetAttributePropertyStructWithName(EAttributePropertyName Name);

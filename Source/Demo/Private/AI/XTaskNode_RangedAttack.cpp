@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "BehaviorTree/BlackboardComponent.h"
 #include "BrainComponent.h"
+#include "Component/XAttributeComponent.h"
 
 EBTNodeResult::Type UXTaskNode_RangedAttack::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
@@ -17,6 +18,7 @@ EBTNodeResult::Type UXTaskNode_RangedAttack::ExecuteTask(UBehaviorTreeComponent&
 		{
 			return EBTNodeResult::Failed;
 		}
+
 		FVector MuzzleLocation = MyPawn->GetMesh()->GetSocketLocation("Muzzle_Front");
 		
 		AActor* TargetActor = Cast<AActor>(OwnerComp.GetBlackboardComponent()->GetValueAsObject("TargetActor"));
@@ -25,10 +27,12 @@ EBTNodeResult::Type UXTaskNode_RangedAttack::ExecuteTask(UBehaviorTreeComponent&
 			return EBTNodeResult::Failed;
 		}
 
-		FActorSpawnParameters Params;
-		Params.Instigator = MyController->GetPawn();
+		if (!UXAttributeComponent::IsActorAlive(TargetActor)) {
+			return EBTNodeResult::Failed;
+		}
 
-		UE_LOG(LogTemp, Warning, TEXT("The projectile intigator is %s"), *GetNameSafe(Params.Instigator));
+		FActorSpawnParameters Params;
+		Params.Instigator = MyPawn;
 
 		Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 

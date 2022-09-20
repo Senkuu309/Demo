@@ -19,17 +19,19 @@ public:
 	AXAICharacter();
 
 public:
+
 	void SetTargetActor(AActor* NewTarget);
 
 	virtual void PostInitializeComponents() override;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	FName TimeHitParamName;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UXAttributeComponent* AttributeComp;
 
 	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UPawnSensingComponent* PawnSensingComp;
-
-	
 
 	UFUNCTION()
 	void OnHealthChanged(AActor* InstigatorActor, UXAttributeComponent* OwningComp, float maxHealth, float newHealth, float Delta);

@@ -12,7 +12,7 @@
 // Sets default values
 AXMagicProjectile::AXMagicProjectile()
 {
-	MoveComp->InitialSpeed = 1000.f;
+	MoveComp->InitialSpeed = 5000.f;
 	MoveComp->ProjectileGravityScale = 0.0f;
 
 	SphereComp->OnComponentHit.AddDynamic(this, &AXMagicProjectile::OnActorHit);
@@ -21,22 +21,21 @@ AXMagicProjectile::AXMagicProjectile()
 
 void AXMagicProjectile::OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, FVector NormalImpulse, const FHitResult& Hit)
 {
-	ACharacter* Player = Cast<ACharacter>(GetInstigator());
-	if (OtherActor && Player != OtherActor)
-	{
-		UGameplayStatics::ApplyDamage(OtherActor, Damage, EventInstigator, Player, DamageTypeClass);
-		Explode();
-	}
-	else Explode();
+	Explode();
 }
 
 void AXMagicProjectile::OnActorOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	ACharacter* Player = Cast<AXCharacter>(GetInstigator());
-	if (OtherActor && Player != OtherActor)
+	if (GetInstigator() == OtherActor)
+	{
+		return;
+	}
+	ACharacter* Player = Cast<ACharacter>(GetInstigator());
+	
+	if (Player && OtherActor && Player->GetClass() != OtherActor->GetClass())
 	{
 		UGameplayStatics::ApplyDamage(OtherActor, Damage, EventInstigator, Player, DamageTypeClass);
-		Explode();
+		
 	}
-	else Explode();
+	Explode();
 }

@@ -8,6 +8,19 @@ bool UXAttributeComponent::isAlive() const
 	return CurrentHealth > 0.0f;
 }
 
+bool UXAttributeComponent::IsActorAlive(AActor* FromActor)
+{
+	if (FromActor)
+	{
+		UXAttributeComponent* AttributeComp = Cast<UXAttributeComponent>(FromActor->GetComponentByClass(UXAttributeComponent::StaticClass()));
+		if (AttributeComp)
+		{
+			return AttributeComp->isAlive();
+		}
+	}
+	return false;
+}
+
 // Sets default values for this component's properties
 UXAttributeComponent::UXAttributeComponent()
 {

@@ -32,16 +32,13 @@ void AXGameModeBase::SpawnBotTimerElapsed()
 			NrOfAliveBots++;
 		}
 	}
-
-	
-
 	float MaxBotCount = 10.0f;
 
-	/*if (ensure(DiffcultyCurve))
+	if (ensure(DiffcultyCurve))
 	{
 		MaxBotCount = DiffcultyCurve->GetFloatValue(GetWorld()->TimeSeconds);
-	}*/
-	UE_LOG(LogTemp, Warning, TEXT("Found %i alive!  MaxBotCount is %f!"), NrOfAliveBots, MaxBotCount);
+	}
+
 	if (NrOfAliveBots >= MaxBotCount)
 	{
 		return;
