@@ -2,12 +2,18 @@
 
 
 #include "Component/XAttributeComponent.h"
+#include "XGameModeBase.h"
 
 // Sets default values for this component's properties
 UXAttributeComponent::UXAttributeComponent()
 {
 	MaxHealth = 200;
 	CurrentHealth = 200;
+}
+
+bool UXAttributeComponent::Kill(AActor* InstigatorActor)
+{
+	return ApplyHealthChange(InstigatorActor, -MaxHealth);
 }
 
 bool UXAttributeComponent::isAlive() const
@@ -34,6 +40,13 @@ bool UXAttributeComponent::IsActorAlive(AActor* FromActor)
 	return false;
 }
 
+float UXAttributeComponent::GetCurrentHealth() {
+	return CurrentHealth;
+}
+
+float UXAttributeComponent::GetMaxHealth() {
+	return MaxHealth;
+}
 
 
 FORCEINLINE FAttributePropertyValue& UXAttributeComponent::GetAttributePropertyStructWithName(EAttributePropertyName Name)
@@ -70,25 +83,33 @@ bool UXAttributeComponent::SetDefaultHealth(float _MaxHealth)
 {
 	MaxHealth = _MaxHealth;
 	CurrentHealth = _MaxHealth;
-	
+
 	return true;
 }
 
 bool UXAttributeComponent::ApplyHealthChange(AActor* InstigatorActor, float Delta)
 {
-	//CurrentHealth += Delta;
-	if (CurrentHealth <= 0.0f && Delta < 0.0f) 
+	if (!GetOwner()->CanBeDamaged())
 	{
 		return false;
 	}
-	if (CurrentHealth >= MaxHealth && Delta > 0.0f)
-	{
-		return false;
-	}
+
+	float OldHealth = CurrentHealth;
 
 	CurrentHealth = FMath::Clamp(CurrentHealth + Delta, 0.0f, MaxHealth);
 
+	float ActualDelta = CurrentHealth - OldHealth;
+
 	OnHealthChanged.Broadcast(InstigatorActor, this, MaxHealth, CurrentHealth, Delta);
 
-	return true;
+	if (ActualDelta < 0.0f && CurrentHealth == 0.0f)
+	{
+		AXGameModeBase* GM = Cast<AXGameModeBase>(GetWorld()->GetAuthGameMode<AXGameModeBase>());
+		if (GM)
+		{
+			GM->OnActorKilled(GetOwner(), InstigatorActor);
+		}
+	}
+
+	return ActualDelta != 0;
 }

@@ -134,6 +134,11 @@ void AXCharacter::OnAttacking(AActor* InstigatorActor, UXAttackComponent* Owning
 	OwningComp->InputBuffer = EInputType::EPropertyNone;
 }
 
+void AXCharacter::HealSelf(float Amount)
+{
+	AttributeComp->ApplyHealthChange(this, Amount);
+}
+
 // Called to bind functionality to input
 void AXCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {

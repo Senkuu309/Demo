@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTTaskNode.h"
-#include "XTaskNode_RangedAttack.generated.h"
+#include "XBTTask_RangedAttack.generated.h"
 
 class AXAICharacter;
 
@@ -12,13 +12,11 @@ class AXAICharacter;
  * 
  */
 UCLASS()
-class DEMO_API UXTaskNode_RangedAttack : public UBTTaskNode
+class DEMO_API UXBTTask_RangedAttack : public UBTTaskNode
 {
 	GENERATED_BODY()
 
 protected:
-	UPROPERTY(EditAnywhere)
-	AXAICharacter* IgnoreSelf; 
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<AActor> ProjectileClass;

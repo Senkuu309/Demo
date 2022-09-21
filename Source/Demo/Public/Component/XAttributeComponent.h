@@ -48,7 +48,16 @@ public:
 	bool SetAttributePropertyValue(EAttributePropertyName Name, float NewValue, bool bUpdateUI);
 
 	UFUNCTION(BlueprintCallable)
+	bool Kill(AActor* InstigatorActor);
+	
+	UFUNCTION(BlueprintCallable)
 	bool isAlive() const;
+
+	UFUNCTION(BlueprintCallable)
+	float GetCurrentHealth();
+
+	UFUNCTION(BlueprintCallable)
+	float GetMaxHealth();
 
 	UPROPERTY(BlueprintAssignable)
 	FOnHealthChanged OnHealthChanged;

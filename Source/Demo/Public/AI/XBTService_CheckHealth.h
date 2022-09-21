@@ -4,24 +4,27 @@
 
 #include "CoreMinimal.h"
 #include "BehaviorTree/BTService.h"
-#include "XBTService_CheckAttackRanged.generated.h"
+#include "BehaviorTree/BehaviorTreeTypes.h"
+#include "XBTService_CheckHealth.generated.h"
+
 
 /**
  * 
  */
-class AXCharacter;
-
 UCLASS()
-class DEMO_API UXBTService_CheckAttackRanged : public UBTService
+class DEMO_API UXBTService_CheckHealth : public UBTService
 {
 	GENERATED_BODY()
 
+public:
+	UXBTService_CheckHealth();
+
 protected:
 	UPROPERTY(EditAnywhere, Category = "AI")
-	TSubclassOf<AXCharacter> CharacterClass;
+	float LowHealthFraction;
 
 	UPROPERTY(EditAnywhere, Category = "AI")
-	FBlackboardKeySelector AttackRangeKey;
+	FBlackboardKeySelector LowHealthKey;
 
 	virtual void TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) override;
 	

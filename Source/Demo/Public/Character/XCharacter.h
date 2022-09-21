@@ -62,7 +62,7 @@ public:
 	FVector WeaponLocation3;
 
 
-	// Called when the game starts or when spawned
+public:	
 	virtual void BeginPlay() override;
 
 	void MoveForward(float value);
@@ -82,19 +82,22 @@ public:
 
 	//½ÇÉ«ËÀÍö
 	UFUNCTION()
-	void OnHealthChanged(AActor* InstigatorActor, UXAttributeComponent*  OwningComp, float maxHealth, float newHealth, float Delta);
-	
-	UFUNCTION()
-	void OnAttacking(AActor* InstigatorActor, UXAttackComponent* OwningComp,FAttackStruct CurrentSkill);
+	void OnHealthChanged(AActor* InstigatorActor, UXAttributeComponent* OwningComp, float maxHealth, float newHealth, float Delta);
 
+	UFUNCTION()
+	void OnAttacking(AActor* InstigatorActor, UXAttackComponent* OwningComp, FAttackStruct CurrentSkill);
+
+	UFUNCTION(Exec)
+	void HealSelf(float Amount = 100);
+	
 	void PostInitializeComponents();
 
-
-public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+
 
 };
