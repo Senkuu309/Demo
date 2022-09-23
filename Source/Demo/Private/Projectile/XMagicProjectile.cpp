@@ -44,9 +44,7 @@ void AXMagicProjectile::OnActorOverlap(UPrimitiveComponent* OverlappedComponent,
 
 	if (OtherActor && GetInstigator() != OtherActor)
 	{
-		if (UXGameplayFunctionLibrary::ApplyDirectionDamage(GetInstigator(), OtherActor, Damage, SweepResult))
-		{
-			Explode();
-		}
+		UXGameplayFunctionLibrary::ApplyDirectionDamage(GetInstigator(), OtherActor, Damage, SweepResult);
+		Explode();
 	}
 }

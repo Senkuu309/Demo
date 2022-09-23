@@ -70,9 +70,6 @@ public:
 	UUserWidget* HUD_Main;
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
-	TSubclassOf<UUserWidget> HealthBarWidgetClass;
-
-	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UUserWidget> HUD_MainClass;
 
 	virtual void BeginPlay() override;
