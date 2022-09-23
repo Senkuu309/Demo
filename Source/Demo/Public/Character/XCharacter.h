@@ -104,6 +104,8 @@ public:
 	
 	void PostInitializeComponents();
 
+	FVector GetPawnViewLocation() const;
+
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

@@ -11,6 +11,7 @@
 #include "Blueprint/UserWidget.h"
 #include "UserWidget/XWorldUserWidget.h"
 #include "Components/CapsuleComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 AXAICharacter::AXAICharacter()
@@ -64,6 +65,8 @@ void AXAICharacter::OnHealthChanged(AActor* InstigatorActor, UXAttributeComponen
 
 		APlayerController* PC = Cast<APlayerController>(GetController());
 		DisableInput(PC);
+
+		//Died
 		if (newHealth <= 0.0f)
 		{
 			AAIController* AIC = Cast<AAIController>(GetController());
@@ -72,8 +75,13 @@ void AXAICharacter::OnHealthChanged(AActor* InstigatorActor, UXAttributeComponen
 				AIC->GetBrainComponent()->StopLogic("Killed");
 			}
 
+			//Ragdoll
 			GetMesh()->SetAllBodiesSimulatePhysics(true);
 			GetMesh()->SetCollisionProfileName("Ragdoll");
+
+			GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			GetCharacterMovement()->DisableMovement();
+
 
 			SetLifeSpan(10.0f);
 		}
