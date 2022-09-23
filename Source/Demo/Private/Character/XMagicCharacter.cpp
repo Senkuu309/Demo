@@ -7,6 +7,7 @@
 #include "Component/XAttributeComponent.h"
 #include "Camera/CameraComponent.h"
 #include "DrawDebugHelpers.h"
+#include "Blueprint/UserWidget.h"
 
 AXMagicCharacter::AXMagicCharacter()
 {
@@ -30,9 +31,6 @@ FTransform AXMagicCharacter::SpawnTM(FName ScoketLocation)
 	ObjParams.AddObjectTypesToQuery(ECC_WorldDynamic);
 	ObjParams.AddObjectTypesToQuery(ECC_WorldStatic);
 	ObjParams.AddObjectTypesToQuery(ECC_Pawn);
-	ObjParams.AddObjectTypesToQuery(ECC_PhysicsBody);
-	ObjParams.AddObjectTypesToQuery(ECC_Vehicle);
-	ObjParams.AddObjectTypesToQuery(ECC_Destructible);
 
 	FVector TraceStart = CameraComp->GetComponentLocation();
 	FVector TraceEnd = CameraComp->GetComponentLocation() + (GetControlRotation().Vector() * 10000);

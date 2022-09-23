@@ -9,6 +9,8 @@
 #include "XInteractionComponent.h"
 #include "Component/XAttributeComponent.h"
 #include "Component/XAttackComponent.h"
+#include "Blueprint/UserWidget.h"
+#include "UserWidget/XWorldUserWidget.h"
 
 // Sets default values
 AXCharacter::AXCharacter()
@@ -58,6 +60,17 @@ void AXCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (!HUD_Main)
+	{
+		if (ensure(HUD_MainClass))
+		{
+			HUD_Main = CreateWidget<UUserWidget>(GetWorld(), HUD_MainClass);
+			if (ensure(HUD_Main))
+			{
+				HUD_Main->AddToViewport();
+			}
+		}
+	}
 }
 
 // Called every frame
@@ -120,10 +133,13 @@ void AXCharacter::PrimaryInteract()
 
 void AXCharacter::OnHealthChanged(AActor* InstigatorActor, UXAttributeComponent* OwningComp, float maxHealth, float newHealth, float Delta)
 {
-	if (newHealth <= 0.0f && Delta < 0.0f)
+	if (Delta < 0.0f)
 	{
-		APlayerController* PC = Cast<APlayerController>(GetController());
-		DisableInput(PC);
+		if (newHealth <= 0.0f)
+		{
+			APlayerController* PC = Cast<APlayerController>(GetController());
+			DisableInput(PC);
+		}
 	}
 }
 

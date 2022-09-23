@@ -4,6 +4,8 @@
 #include "Component/XAttributeComponent.h"
 #include "XGameModeBase.h"
 
+static TAutoConsoleVariable<float> CVarDamageMultiplier(TEXT("su.DamageMultiplier"), 1.0f, TEXT("Global Damage Modifier for Attribtue Component."), ECVF_Cheat);
+
 // Sets default values for this component's properties
 UXAttributeComponent::UXAttributeComponent()
 {
@@ -92,6 +94,13 @@ bool UXAttributeComponent::ApplyHealthChange(AActor* InstigatorActor, float Delt
 	if (!GetOwner()->CanBeDamaged())
 	{
 		return false;
+	}
+
+	if (Delta < 0.0f)
+	{
+		float DamageMultipiler = CVarDamageMultiplier.GetValueOnGameThread();
+
+		Delta *= DamageMultipiler;
 	}
 
 	float OldHealth = CurrentHealth;

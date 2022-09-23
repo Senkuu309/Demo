@@ -10,6 +10,7 @@
 #include "BrainComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "UserWidget/XWorldUserWidget.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 AXAICharacter::AXAICharacter()
@@ -19,6 +20,12 @@ AXAICharacter::AXAICharacter()
 	//创建血量组件
 	AttributeComp = CreateDefaultSubobject<UXAttributeComponent>("AttributeComp");
 	AttributeComp->SetDefaultHealth(50);
+	
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
+	
+	//GetCapsuleComponent()->SetCollisionResponseToChannel(ECC_Projectile, ECR_Ignore);
+	//GetMesh()->SetGenerateOverlapEvents(true);
+
 
 	TimeHitParamName = "TimeToHit";
 }

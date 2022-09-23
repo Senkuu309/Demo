@@ -12,6 +12,7 @@ class USpringArmComponent;
 class UXInteractionComponent;
 class UXAttributeComponent;
 class UXAttackComponent;
+class UXWorldUserWidget;
 
 UCLASS(Abstract)
 class DEMO_API AXCharacter : public ACharacter
@@ -63,6 +64,17 @@ public:
 
 
 public:	
+
+	UXWorldUserWidget* ActiveHealthBar;
+
+	UUserWidget* HUD_Main;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UUserWidget> HealthBarWidgetClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UUserWidget> HUD_MainClass;
+
 	virtual void BeginPlay() override;
 
 	void MoveForward(float value);

@@ -5,7 +5,8 @@
 #include "XGameplayInterface.h"
 #include "DrawDebugHelpers.h"
 
-// Sets default values for this component's properties
+static TAutoConsoleVariable<bool> CVarDebugDrawInteraction(TEXT("su.DebugDrawInteraction"), false, TEXT("Enable Debug Lines for Interact Component."), ECVF_Cheat);
+
 UXInteractionComponent::UXInteractionComponent()
 {
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
@@ -17,6 +18,8 @@ UXInteractionComponent::UXInteractionComponent()
 
 void UXInteractionComponent::PrimaryInteract()
 {
+	bool bDebugDraw = CVarDebugDrawInteraction.GetValueOnGameThread();
+
 	FCollisionObjectQueryParams ObjectQueryParams;
 	ObjectQueryParams.AddObjectTypesToQuery(ECC_WorldDynamic);
 
@@ -41,7 +44,11 @@ void UXInteractionComponent::PrimaryInteract()
 			IXGameplayInterface::Execute_Interact(HitActor, MyPawn);
 		}
 	}
-	FColor LinearColors = bBlockngHit ? FColor::Green : FColor::Red;
-	DrawDebugLine(GetWorld(), EyeLocation, End, LinearColors, false, 2.0f, 0, 2.0f);
+	if (bDebugDraw)
+	{
+		FColor LinearColors = bBlockngHit ? FColor::Green : FColor::Red;
+		DrawDebugLine(GetWorld(), EyeLocation, End, LinearColors, false, 2.0f, 0, 2.0f);
+	}
+	
 }
 
