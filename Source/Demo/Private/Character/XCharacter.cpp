@@ -80,6 +80,7 @@ void AXCharacter::BeginPlay()
 			}
 		}
 	}
+
 }
 
 // Called every frame
@@ -130,17 +131,17 @@ void AXCharacter::SprintStop()
 
 void AXCharacter::MBLAttack()
 {
-	AttackComp->SkillInput(EInputType::EPropertyMBL);
+	AttackComp->SkillInput(this, EInputType::EPropertyMBL);
 }
 
 void AXCharacter::MBRAttack()
 {
-	AttackComp->SkillInput(EInputType::EPropertyMBR);
+	AttackComp->SkillInput(this, EInputType::EPropertyMBR);
 }
 
 void AXCharacter::ExtraSkill()
 {
-	AttackComp->SkillInput(EInputType::EPropertyExtra);
+	AttackComp->SkillInput(this, EInputType::EPropertyExtra);
 }
 
 void AXCharacter::PrimaryInteract()

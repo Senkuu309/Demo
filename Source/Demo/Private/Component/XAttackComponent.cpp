@@ -2,19 +2,25 @@
 
 
 #include "Component/XAttackComponent.h"
+#include "GameFramework/Character.h"
 
-// Sets default values for this component's properties
 UXAttackComponent::UXAttackComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
 
-	// ...
+}
+
+void UXAttackComponent::PlayAttackMontage(AActor* Instigator, FAttackStruct NextSkill)
+{
+	isAttacking = true;
+	ACharacter* Player = Cast<ACharacter>(Instigator);
+	Player->PlayAnimMontage(NextSkill.AttackAnim);
+	CurrentSkill = NextSkill;
+	InputBuffer = EInputType::EPropertyNone;
 }
 
 
-void UXAttackComponent::SkillInput(EInputType InputType)
+void UXAttackComponent::SkillInput(AActor* Instigator, EInputType InputType)
 {
 	if (!isAttacking)
 	{
@@ -22,7 +28,8 @@ void UXAttackComponent::SkillInput(EInputType InputType)
 		if (Name) 
 		{
 			isAttacking = true;
-			OnAttacking.Broadcast(nullptr, this, *AttackSkillData.Find(*Name));
+			PlayAttackMontage(Instigator, *AttackSkillData.Find(*Name));
+			//OnAttacking.Broadcast(nullptr, this, *AttackSkillData.Find(*Name));
 		}
 		else
 		{
@@ -36,7 +43,8 @@ void UXAttackComponent::SkillInput(EInputType InputType)
 			FName* SkillName = CurrentSkill.NextCombo.Find(InputType);
 			if (SkillName)
 			{
-				OnAttacking.Broadcast(nullptr, this, *AttackSkillData.Find(*SkillName));
+				PlayAttackMontage(Instigator, *AttackSkillData.Find(*SkillName));
+				//OnAttacking.Broadcast(nullptr, this, *AttackSkillData.Find(*SkillName));
 			}
 			//else ComboEnd();
 		}
@@ -59,6 +67,6 @@ void UXAttackComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAct
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	if (InputBuffer != EInputType::EPropertyNone) {
-		SkillInput(InputBuffer);
+		SkillInput(GetOwner(), InputBuffer);
 	}
 }

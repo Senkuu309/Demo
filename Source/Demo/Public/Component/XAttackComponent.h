@@ -7,14 +7,18 @@
 #include "XComponentTypes.h"
 #include "XAttackComponent.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnAttacking, AActor*, InstigatorActor, UXAttackComponent*, OwningComp, FAttackStruct,CurrentSkill);
+//DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnAttacking, AActor*, InstigatorActor, UXAttackComponent*, OwningComp, FAttackStruct,CurrentSkill);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Blueprintable )
 class DEMO_API UXAttackComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+	UFUNCTION()
+	void PlayAttackMontage(AActor* Instigator, FAttackStruct CurrentSkill);
+
 public:	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack")
 	TMap<FName,FAttackStruct> AttackSkillData;
 
@@ -37,14 +41,13 @@ public:
 	UXAttackComponent();
 
 	UFUNCTION(BlueprintCallable)
-	void SkillInput(EInputType InputType);
+	void SkillInput(AActor* Instigator, EInputType InputType);
 
 	UFUNCTION(BlueprintCallable)
 	void ComboEnd();
 
-	UPROPERTY(BlueprintAssignable)
-	FOnAttacking OnAttacking;
-
+	//UPROPERTY(BlueprintAssignable)
+	//FOnAttacking OnAttacking;
 
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction);
 };
