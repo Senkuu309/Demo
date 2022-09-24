@@ -9,6 +9,7 @@
 #include "XInteractionComponent.h"
 #include "Component/XAttributeComponent.h"
 #include "Component/XAttackComponent.h"
+#include "Component/XActionComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "UserWidget/XWorldUserWidget.h"
 
@@ -45,6 +46,9 @@ AXCharacter::AXCharacter()
 	WeaponLocation1 = GetMesh()->GetSocketLocation("hand_rSocket");
 	WeaponLocation2 = WeaponComp->GetSocketLocation("Mid");
 	WeaponLocation3 = WeaponComp->GetSocketLocation("End");
+
+	//创建动作组件
+	ActionComp = CreateDefaultSubobject<UXActionComponent>("ActionComp");
 }
 
 void AXCharacter::PostInitializeComponents()
@@ -113,6 +117,17 @@ void AXCharacter::MoveRight(float value)
 }
 	
 
+void AXCharacter::SprintStart()
+{
+	ActionComp->StartActionByName(this, "Sprint");
+	
+}
+
+void AXCharacter::SprintStop()
+{
+	ActionComp->StopActionByName(this, "Sprint");
+}
+
 void AXCharacter::MBLAttack()
 {
 	AttackComp->SkillInput(EInputType::EPropertyMBL);
@@ -172,6 +187,9 @@ void AXCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 
 	PlayerInputComponent->BindAction("PrimaryInteract", IE_Pressed, this, &AXCharacter::PrimaryInteract);
+
+	PlayerInputComponent->BindAction("Sprint", IE_Pressed, this, &AXCharacter::SprintStart);
+	PlayerInputComponent->BindAction("Sprint", IE_Released, this, &AXCharacter::SprintStop);
 
 	PlayerInputComponent->BindAction("MBL", IE_Pressed, this, &AXCharacter::MBLAttack);
 	PlayerInputComponent->BindAction("MBR", IE_Pressed, this, &AXCharacter::MBRAttack);

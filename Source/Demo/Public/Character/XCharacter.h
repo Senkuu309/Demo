@@ -13,6 +13,7 @@ class UXInteractionComponent;
 class UXAttributeComponent;
 class UXAttackComponent;
 class UXWorldUserWidget;
+class UXActionComponent;
 
 UCLASS(Abstract)
 class DEMO_API AXCharacter : public ACharacter
@@ -29,15 +30,15 @@ public:
 public:
 
 	//相机臂组件
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	USpringArmComponent* SpringArmComp;
 
 	//相机组件
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UCameraComponent* CameraComp;
 
 	//交互组件
-	UPROPERTY(VisibleAnywhere)
+	UPROPERTY(VisibleAnywhere, Category = "Components")
 	UXInteractionComponent* InteractComp;
 
 	//血量组件
@@ -49,8 +50,13 @@ public:
 	UXAttackComponent* AttackComp;
 
 	//武器组件
-	UPROPERTY(BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite, Category = "Components")
 	UStaticMeshComponent* WeaponComp;
+
+	//动作组件
+	//攻击组件
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+	UXActionComponent* ActionComp;
 
 	//武器位置
 	UPROPERTY(VisibleAnywhere)
@@ -77,6 +83,11 @@ public:
 	void MoveForward(float value);
 
 	void MoveRight(float value);
+
+	//冲刺
+	void SprintStart();
+
+	void SprintStop();
 
 	//左键攻击
 	virtual void MBLAttack();
