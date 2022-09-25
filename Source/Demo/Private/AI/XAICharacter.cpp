@@ -82,7 +82,6 @@ void AXAICharacter::OnHealthChanged(AActor* InstigatorActor, UXAttributeComponen
 			GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 			GetCharacterMovement()->DisableMovement();
 
-
 			SetLifeSpan(10.0f);
 		}
 	}

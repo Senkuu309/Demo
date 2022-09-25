@@ -10,5 +10,5 @@ void UXAction::StartAction_Implementation(AActor* Instigator)
 
 void UXAction::StopAction_Implementation(AActor* Instigator)
 {
-	UE_LOG(LogTemp, Log, TEXT("Running: %s"), *GetNameSafe(this));
+	UE_LOG(LogTemp, Log, TEXT("Stop: %s"), *GetNameSafe(this));
 }

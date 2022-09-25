@@ -5,11 +5,11 @@
 #include "Particles/ParticleSystemComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include"Components/TimelineComponent.h"
+#include "Net/UnrealNetwork.h"
 
 // Sets default values
 AXItemChest::AXItemChest()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
 	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>("BaseMesh");
@@ -25,23 +25,26 @@ AXItemChest::AXItemChest()
 	BonusComp->SetupAttachment(BaseMesh);
 
 	TargetPitch = 110;
-}
 
-// Called when the game starts or when spawned
-void AXItemChest::BeginPlay()
-{
-	Super::BeginPlay();
-	
-}
-
-// Called every frame
-void AXItemChest::Tick(float DeltaTime)
-{
-	Super::Tick(DeltaTime);
+	SetReplicates(true);
 }
 
 void AXItemChest::Interact_Implementation(APawn* InstigatorPawn)
 {
-	LidMesh->SetRelativeRotation(FRotator(TargetPitch, 0, 0));
+	bLidOpened = !bLidOpened;
+
+	OnRep_LidOpened();
 }
 
+void AXItemChest::OnRep_LidOpened()
+{
+	float CurrPitch = bLidOpened ? TargetPitch : 0.0f;
+	LidMesh->SetRelativeRotation(FRotator(CurrPitch, 0, 0));
+}
+
+
+void AXItemChest::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+	DOREPLIFETIME(AXItemChest, bLidOpened);
+}

@@ -10,7 +10,7 @@
 #include "Character/XCharacter.h"
 #include "EngineUtils.h"
 
-static TAutoConsoleVariable<bool> CVarSpawnBots(TEXT("su.SpawnBots"), true, TEXT("Enable Spawning of bots via timer."), ECVF_Cheat);
+static TAutoConsoleVariable<bool> CVarSpawnBots(TEXT("su.SpawnBots"), false, TEXT("Enable Spawning of bots via timer."), ECVF_Cheat);
 
 AXGameModeBase::AXGameModeBase()
 {

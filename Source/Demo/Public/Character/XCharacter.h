@@ -68,15 +68,15 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	FVector WeaponLocation3;
 
-
-public:	
-
 	UXWorldUserWidget* ActiveHealthBar;
 
 	UUserWidget* HUD_Main;
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UUserWidget> HUD_MainClass;
+
+
+public:	
 
 	virtual void BeginPlay() override;
 
@@ -114,10 +114,8 @@ public:
 
 	FVector GetPawnViewLocation() const;
 
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 

@@ -12,11 +12,11 @@
 #include "Component/XActionComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "UserWidget/XWorldUserWidget.h"
+#include "Components/CapsuleComponent.h"
 
-// Sets default values
+
 AXCharacter::AXCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
 	//创建相机臂组件，绑定到角色上
@@ -64,7 +64,6 @@ FVector AXCharacter::GetPawnViewLocation() const
 	return CameraComp->GetComponentLocation();
 }
 
-// Called when the game starts or when spawned
 void AXCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -83,7 +82,6 @@ void AXCharacter::BeginPlay()
 
 }
 
-// Called every frame
 void AXCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

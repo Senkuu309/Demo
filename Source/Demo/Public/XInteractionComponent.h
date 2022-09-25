@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "XInteractionComponent.generated.h"
 
+class UXWorldUserWidget;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class DEMO_API UXInteractionComponent : public UActorComponent
@@ -15,7 +16,32 @@ class DEMO_API UXInteractionComponent : public UActorComponent
 public:
 	void PrimaryInteract();
 
+protected:
+	UFUNCTION(Server, Reliable)
+	void ServerInteract(AActor* InFocus);
+
+	void FindBestInteractable();
+
+	UPROPERTY()
+	AActor* FocusedActor;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Trace")
+	float TraceDistance;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Trace")
+	float TraceRadius;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Trace")
+	TEnumAsByte<ECollisionChannel> CollisionChannel;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UXWorldUserWidget> DefaultWidgetClass;
+
+	UPROPERTY()
+	UXWorldUserWidget* DefaultWidgetInstance;
+
 public:	
-	// Sets default values for this component's properties
 	UXInteractionComponent();
+
+	void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction);
 };

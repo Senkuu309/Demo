@@ -15,6 +15,7 @@ void UXAttackComponent::PlayAttackMontage(AActor* Instigator, FAttackStruct Next
 	isAttacking = true;
 	ACharacter* Player = Cast<ACharacter>(Instigator);
 	Player->PlayAnimMontage(NextSkill.AttackAnim);
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Red, NextSkill.SkillName.ToString());
 	CurrentSkill = NextSkill;
 	InputBuffer = EInputType::EPropertyNone;
 }
