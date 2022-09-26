@@ -68,18 +68,34 @@ void AXCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	if (!HUD_Main)
+	if (IsLocallyControlled())
 	{
-		if (ensure(HUD_MainClass))
+		if (!HUD_Main)
 		{
-			HUD_Main = CreateWidget<UUserWidget>(GetWorld(), HUD_MainClass);
-			if (ensure(HUD_Main))
+			if (ensure(HUD_MainClass))
 			{
-				HUD_Main->AddToViewport();
+				HUD_Main = CreateWidget<UUserWidget>(GetWorld(), HUD_MainClass);
+				if (ensure(HUD_Main))
+				{
+					HUD_Main->AddToViewport();
+				}
 			}
 		}
 	}
 
+
+	if (ActiveHealthBar == nullptr)
+	{
+		if (ensure(HealthBarWidgetClass))
+		{
+			ActiveHealthBar = CreateWidget<UXWorldUserWidget>(GetWorld(), HealthBarWidgetClass);
+			if (ActiveHealthBar)
+			{
+				ActiveHealthBar->AttachedActor = this;
+				ActiveHealthBar->AddToViewport();
+			}
+		}
+	}
 }
 
 void AXCharacter::Tick(float DeltaTime)
@@ -154,6 +170,7 @@ void AXCharacter::OnHealthChanged(AActor* InstigatorActor, UXAttributeComponent*
 {
 	if (Delta < 0.0f)
 	{
+
 		if (newHealth <= 0.0f)
 		{
 			APlayerController* PC = Cast<APlayerController>(GetController());

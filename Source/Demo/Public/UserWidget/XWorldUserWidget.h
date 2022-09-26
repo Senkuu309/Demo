@@ -17,6 +17,8 @@ class DEMO_API UXWorldUserWidget : public UUserWidget
 	GENERATED_BODY()
 	
 public:
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	FVector	WorldOffset;
 	
 	UPROPERTY(meta = (BindWidget))
 	USizeBox* ParentSizeBox;

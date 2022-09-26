@@ -3,6 +3,7 @@
 
 #include "Component/XAttributeComponent.h"
 #include "XGameModeBase.h"
+#include "Net/UnrealNetwork.h"
 
 static TAutoConsoleVariable<float> CVarDamageMultiplier(TEXT("su.DamageMultiplier"), 1.0f, TEXT("Global Damage Modifier for Attribtue Component."), ECVF_Cheat);
 
@@ -10,7 +11,9 @@ static TAutoConsoleVariable<float> CVarDamageMultiplier(TEXT("su.DamageMultiplie
 UXAttributeComponent::UXAttributeComponent()
 {
 	MaxHealth = 200;
-	CurrentHealth = 200;
+	CurrentHealth = MaxHealth;
+
+	SetIsReplicatedByDefault(true);
 }
 
 bool UXAttributeComponent::Kill(AActor* InstigatorActor)
@@ -109,7 +112,12 @@ bool UXAttributeComponent::ApplyHealthChange(AActor* InstigatorActor, float Delt
 
 	float ActualDelta = CurrentHealth - OldHealth;
 
-	OnHealthChanged.Broadcast(InstigatorActor, this, MaxHealth, CurrentHealth, Delta);
+	if (ActualDelta != 0.0f)
+	{
+		MulticastHealthChanged(InstigatorActor, CurrentHealth, ActualDelta);
+	}
+	
+	//OnHealthChanged.Broadcast(InstigatorActor, this, MaxHealth, CurrentHealth, ActualDelta);
 
 	if (ActualDelta < 0.0f && CurrentHealth == 0.0f)
 	{
@@ -121,4 +129,20 @@ bool UXAttributeComponent::ApplyHealthChange(AActor* InstigatorActor, float Delt
 	}
 
 	return ActualDelta != 0;
+}
+
+void UXAttributeComponent::MulticastHealthChanged_Implementation(AActor* InstigatorActor, float NewHealth, float Delta)
+{
+	OnHealthChanged.Broadcast(InstigatorActor, this, MaxHealth, NewHealth, Delta);
+}
+
+
+void UXAttributeComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(UXAttributeComponent, CurrentHealth);
+	DOREPLIFETIME(UXAttributeComponent, MaxHealth);
+
+	//DOREPLIFETIME_CONDITION(UXAttributeComponent, MaxHealth, COND_InitialOnly);
 }

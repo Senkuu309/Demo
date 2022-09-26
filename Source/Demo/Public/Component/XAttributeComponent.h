@@ -6,7 +6,7 @@
 #include "Component/XComponentTypes.h"
 #include "XAttributeComponent.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnHealthChanged, AActor*, InstigatorActor, UXAttributeComponent*, OwningComp, float, maxHealth, float, newHealth, float, Delta);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_FiveParams(FOnHealthChanged, AActor*, InstigatorActor, UXAttributeComponent*, OwningComp, float, MaxHealth, float, CurrentHealth, float, Delta);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Blueprintable )
 class DEMO_API UXAttributeComponent : public UActorComponent
@@ -15,16 +15,23 @@ class DEMO_API UXAttributeComponent : public UActorComponent
 
 protected:
 
-	UPROPERTY(BlueprintReadOnly, Category = "Attribute")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Replicated, Category = "Attribute")
 	float MaxHealth;
 
-	UPROPERTY(BlueprintReadOnly, Category = "Attribute")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Replicated, Category = "Attribute")
 	float CurrentHealth;
+
+	//UPROPERTY(ReplicatedUsing = "")
+	//bool bIsAlive;
+
+	UFUNCTION(NetMulticast, Reliable)
+	void MulticastHealthChanged(AActor * InstigatorActor, float NewHealth, float Delta);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attribute")
 	TMap<EAttributePropertyName, FAttributePropertyValue> AttributeProperties;
 	
 public:	
+
 
 	UXAttributeComponent();
 
@@ -49,7 +56,7 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	bool Kill(AActor* InstigatorActor);
-	
+
 	UFUNCTION(BlueprintCallable)
 	bool isAlive() const;
 

@@ -68,12 +68,15 @@ public:
 	UPROPERTY(VisibleAnywhere)
 	FVector WeaponLocation3;
 
-	UXWorldUserWidget* ActiveHealthBar;
-
 	UUserWidget* HUD_Main;
 
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UUserWidget> HUD_MainClass;
+
+	UXWorldUserWidget* ActiveHealthBar;
+
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UUserWidget> HealthBarWidgetClass;
 
 
 public:	
