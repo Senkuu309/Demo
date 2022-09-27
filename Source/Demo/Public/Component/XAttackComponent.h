@@ -7,17 +7,32 @@
 #include "XComponentTypes.h"
 #include "XAttackComponent.generated.h"
 
-//DECLARE_DYNAMIC_MULTICAST_DELEGATE_ThreeParams(FOnAttacking, AActor*, InstigatorActor, UXAttackComponent*, OwningComp, FAttackStruct,CurrentSkill);
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Blueprintable )
 class DEMO_API UXAttackComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
+protected:
+	UPROPERTY()
+	FAttackStruct NextSkill;
+
 	UFUNCTION()
-	void PlayAttackMontage(AActor* Instigator, FAttackStruct CurrentSkill);
+	void PlayAttackMontage(AActor* Instigator);
+
+	UFUNCTION(Server, Reliable)
+	void ServerPlayAnimMontage(AActor* Instigator, EInputType InputType);
+
+	UPROPERTY(ReplicatedUsing = "OnRep_bIsAttack", BlueprintReadOnly)
+	bool bIsAttack;
+
+	UFUNCTION()
+	void OnRep_bIsAttack();
 
 public:	
+
+	UPROPERTY(Replicated)
+	UAnimMontage* AttackAnim;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack")
 	TMap<FName,FAttackStruct> AttackSkillData;
@@ -25,10 +40,10 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Attack")
 	FAttackStruct CurrentSkill;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Attack")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Replicated, Category = "Attack")
 	bool isAttacking = false;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Attack")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Replicated, Category = "Attack")
 	bool SaveAttack = false;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Attack")
@@ -43,7 +58,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SkillInput(AActor* Instigator, EInputType InputType);
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(Server,Reliable, BlueprintCallable)
 	void ComboEnd();
 
 	//UPROPERTY(BlueprintAssignable)

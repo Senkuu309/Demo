@@ -146,6 +146,7 @@ void AXCharacter::SprintStop()
 void AXCharacter::MBLAttack()
 {
 	AttackComp->SkillInput(this, EInputType::EPropertyMBL);
+	GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, AttackComp->isAttacking?"True":"False");
 }
 
 void AXCharacter::MBRAttack()
@@ -174,7 +175,13 @@ void AXCharacter::OnHealthChanged(AActor* InstigatorActor, UXAttributeComponent*
 		if (newHealth <= 0.0f)
 		{
 			APlayerController* PC = Cast<APlayerController>(GetController());
+
+			GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+			GetCharacterMovement()->DisableMovement();
+
 			DisableInput(PC);
+
+			SetLifeSpan(10.0f);
 		}
 	}
 }

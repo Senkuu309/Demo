@@ -26,10 +26,7 @@ AXProjectileBase::AXProjectileBase()
 	MoveComp->InitialSpeed = 8000.f;
 	MoveComp->ProjectileGravityScale = 0.0f;
 	
-
-
-	//SetReplicates(true);
-
+	SetReplicates(true);
 }
 
 void AXProjectileBase::OnActorHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)

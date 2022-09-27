@@ -7,7 +7,6 @@
 
 static TAutoConsoleVariable<float> CVarDamageMultiplier(TEXT("su.DamageMultiplier"), 1.0f, TEXT("Global Damage Modifier for Attribtue Component."), ECVF_Cheat);
 
-// Sets default values for this component's properties
 UXAttributeComponent::UXAttributeComponent()
 {
 	MaxHealth = 200;

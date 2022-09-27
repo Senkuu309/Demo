@@ -54,6 +54,7 @@ struct FAttackStruct
 {
 	GENERATED_USTRUCT_BODY()
 
+public:
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)
 	FName SkillName;
 	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly)

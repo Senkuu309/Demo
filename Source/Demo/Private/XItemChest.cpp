@@ -7,7 +7,6 @@
 #include"Components/TimelineComponent.h"
 #include "Net/UnrealNetwork.h"
 
-// Sets default values
 AXItemChest::AXItemChest()
 {
 	PrimaryActorTick.bCanEverTick = true;

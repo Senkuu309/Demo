@@ -9,8 +9,11 @@ void AXAIController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	RunBehaviorTree(BehaviorTree);
-
+	if (ensure(BehaviorTree))
+	{
+		RunBehaviorTree(BehaviorTree);
+	}
+	
 	/*APawn* MyPawn = UGameplayStatics::GetPlayerPawn(this, 0);
 	if (MyPawn)
 	{

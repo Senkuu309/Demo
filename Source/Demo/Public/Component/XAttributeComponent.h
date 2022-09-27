@@ -31,8 +31,6 @@ protected:
 	TMap<EAttributePropertyName, FAttributePropertyValue> AttributeProperties;
 	
 public:	
-
-
 	UXAttributeComponent();
 
 	UFUNCTION(BlueprintCallable)
