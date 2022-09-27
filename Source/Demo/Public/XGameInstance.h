@@ -18,7 +18,5 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditDefaultsOnly, Category = "AutoLoadPrimary")
 	TArray<FPrimaryAssetType> AutoLoadTypes;
 
-	void AutoLoadDataAssets();
-
 	virtual void Init() override;
 };
